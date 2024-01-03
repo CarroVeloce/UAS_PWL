@@ -68,16 +68,31 @@
         }
 
         /* Additional styles can be added here as needed */
+        .profile-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            padding-left: 1500px; /* Atur lebar padding di sisi kanan */
+            background-color: #444;
+            color: #fff;
+        }
+        
     </style>
 </head>
 <body>
+    <div class="profile-container">
+        <p>JohnDoe</p>
+    </div>
     <div class="sidebar">
         <h2>ADMIN</h2>  
         <a href="index.html">Home</a>
         <a href="master_barang.php">Master Barang</a>
         <a href="master_supplier.php">Master Supplier</a>
         <a href="#master-distributor">Master Distributor</a>
+        <a href="login.php">Login</a>
     </div>
+    
     
 
 </body>

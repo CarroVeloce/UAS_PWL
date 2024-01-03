@@ -10,15 +10,15 @@
 
         /* New styles for sidebar */
         .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 250px;
-            background-color: #333;
-            color: #fff;
-            padding-top: 20px;
-        }
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 250px;
+        background-color: #333;
+        color: #fff;
+        padding-top: 20px; /* Padding top untuk sidebar */
+    }
 
         .sidebar a {
             padding: 10px;
@@ -30,6 +30,11 @@
         .sidebar a:hover {
             background-color: #555;
         }
+        .sidebar h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 20px; /* Margin top untuk h2 */
+    }
 
         /* Additional styles for table */
         table {
@@ -62,14 +67,27 @@
             max-width: 100px;
             height: auto;
         }
+        
         h2 {
             text-align: center; /* Membuat teks menjadi pusat */
-            margin-top: 20px; /* Menambahkan margin di atas */
+            margin-top: 100px; /* Menambahkan margin di atas */
+        }
+        .profile-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            padding-left: 1500px; /* Atur lebar padding di sisi kanan */
+            background-color: #444;
+            color: #fff;
         }
     </style>
 </head>
 
 <body>
+<div class="profile-container">
+        <p>JohnDoe</p>
+    </div>
     <!-- Sidebar -->
     <div class="sidebar">
     <h2>ADMIN</h2>
