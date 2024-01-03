@@ -6,18 +6,16 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
-        /* Existing CSS styles here */
-
-        /* New styles for sidebar */
-        .sidebar {
+    .sidebar {
             position: fixed;
             top: 0;
             left: 0;
             height: 100%;
             width: 250px;
-            background-color: #333;
+            background: linear-gradient(to bottom, #007bff, #6f42c1);
             color: #fff;
             padding-top: 20px;
+            /* Padding top untuk sidebar */
         }
 
         .sidebar a {
@@ -28,19 +26,28 @@
         }
 
         .sidebar a:hover {
-            background-color: #555;
+            background: linear-gradient(to left, #007bff, #6f42c1);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
         /* Additional styles for table */
         table {
-            width: 80%; /* Lebar tabel */
-            margin: 20px auto; /* Posisi tengah */
-            border: 1px solid #ccc; /* Garis tepi */
-            border-radius: 5px; /* Sudut bulat */
-            overflow: hidden; /* Mengatur overflow tabel */
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
+        th,
+        td {
             padding: 8px;
             text-align: left;
             border-bottom: 1px solid #ddd;
@@ -65,8 +72,21 @@
         }
 
         h2 {
-            text-align: center; /* Membuat teks menjadi pusat */
-            margin-top: 20px; /* Menambahkan margin di atas */
+            text-align: center;
+            /* Membuat teks menjadi pusat */
+            margin-top: 100px;
+            /* Menambahkan margin di atas */
+        }
+
+        .profile-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            padding-left: 1500px;
+            background-color: #007bff;
+            color: #fff;
+            box-shadow: 0 9px 7px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
