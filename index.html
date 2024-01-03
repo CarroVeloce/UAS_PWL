@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        /* Styling for Navbar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px;
+            display: block;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #555;
+        }
+
+        /* Styling for Main Content */
+        .main-content {
+            padding-top: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        /* Styling for Cards */
+        .card {
+            margin-bottom: 20px;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Customize cards for each section */
+        .master-section {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        h2 {
+            text-align: center; /* Membuat teks menjadi pusat */
+            margin-top: 20px; /* Menambahkan margin di atas */
+        }
+
+        /* Additional styles can be added here as needed */
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>ADMIN</h2>  
+        <a href="index.html">Home</a>
+        <a href="master_barang.php">Master Barang</a>
+        <a href="master_supplier.php">Master Supplier</a>
+        <a href="#master-distributor">Master Distributor</a>
+    </div>
+    
+
+</body>
+</html>
