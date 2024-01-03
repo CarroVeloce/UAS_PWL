@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <style>
         body {
             font-family: tahoma, arial;
@@ -58,17 +60,44 @@
                     <th>GAMBAR</th> 
                 </tr>
             </thead>
-    </table>
+   
 
-<?php
-            $host = "localhost";
-            $username = "root";
-            $password = "";
-            $database = "uas_pwl";
+    <?php
+        $host = "localhost";
+        $username = "root";
+        $password = "";
+        $database = "uas_pwl";
 
-            $conn = mysqli_connect($host, $username, $password, $database);
+        $conn = mysqli_connect($host, $username, $password, $database);
 
-            if (!$conn) {
-                die("Koneksi gagal: " . mysqli_connect_error());
+        if (!$conn) {
+            die("Koneksi gagal: " . mysqli_connect_error());
+        }
+
+        $sql = "SELECT nobarang, namabarang, jenisbarang, supplier, stok, harga, tanggalmasuk, gambar FROM databarang";
+        $result = mysqli_query($conn, $sql);
+        
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_array($result)) {
+                echo "<tr>";
+                echo "<td>" . $row['nobarang'] . "</td>";
+                echo "<td>" . $row['namabarang'] . "</td>";
+                echo "<td>" . $row['jenisbarang'] . "</td>";
+                echo "<td>" . $row['supplier'] . "</td>";
+                echo "<td>" . $row['stok'] . "</td>";
+                echo "<td>" . $row['harga'] . "</td>";
+                echo "<td>" . $row['tanggalmasuk'] . "</td>";
+                echo "<td><img src='" . $row['gambar'] . "' width='100'></td>"; 
+                echo "</tr>";
             }
-?>
+        } else {
+            echo "<tr><td colspan='7'>Tidak ada data mahasiswa.</td></tr>";
+        }
+
+        mysqli_close($conn);
+        ?>  
+        
+    </table>
+</div>
+</body>
+</html>
