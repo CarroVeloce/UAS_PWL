@@ -41,6 +41,7 @@
         /* Input yang lebih rounded */
         input[type="text"],
         input[type="date"],
+        input[type="number"],
         input[type="file"] {
             width: calc(100% - 40px);
             margin: 5px 20px;
@@ -59,6 +60,7 @@
         /* Efek hover */
         input[type="text"]:hover,
         input[type="date"]:hover,
+        input[type="number"]:hover,
         input[type="file"]:hover {
             border-color: #007bff;
         }
@@ -86,7 +88,7 @@
         }
         .moving-background {
             position: absolute;
-            top: 0;
+            top: 0; 
             left: 0;
             width: 100%;
             height: 100%;
@@ -221,7 +223,7 @@
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
         <h2>Form Input Barang</h2>
         <label for="nobarang">NO BARANG:</label>
-        <input type="text" id="nobarang" name="nobarang">
+        <input type="number" id="nobarang" name="nobarang">
 
         <label for="namabarang">NAMA BARANG:</label>
         <input type="text" id="namabarang" name="namabarang">
@@ -233,10 +235,10 @@
         <input type="text" id="supplier" name="supplier">
 
         <label for="stok">STOK:</label>
-        <input type="text" id="stok" name="stok">
+        <input type="number" id="stok" name="stok">
 
         <label for="harga">HARGA:</label>
-        <input type="text" id="harga" name="harga">
+        <input type="number" id="harga" name="harga">
 
         <label for="tanggalmasuk">TANGGAL MASUK:</label>
         <input type="date" id="tanggalmasuk" name="tanggalmasuk">

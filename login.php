@@ -1,18 +1,68 @@
+<div class="error-message">
+<div class="capcay-container">
+<img src="capcay.php" alt="CAPTCHA Image">
+<?php
+        session_start();
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $login_captcha = $_POST['capcay'] ?? '';
+            $captcha_session = $_SESSION["code"] ?? '';
+
+            if ($login_captcha !== $captcha_session) {
+                echo "<p class='error-message'>CAPTCHA tidak valid.</p>";
+            } else {
+                $host = "localhost";
+                $username = "root";
+                $password = "";
+                $database = "uas_pwl";
+
+                $conn = mysqli_connect($host, $username, $password, $database);
+
+                if (!$conn) {
+                    die("Koneksi gagal: " . mysqli_connect_error());
+                }
+
+                $login_username = $_POST['username'] ?? '';
+                $login_password = $_POST['password'] ?? '';
+
+                $sql = "SELECT * FROM user WHERE username='$login_username' AND password='$login_password'";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    header("Location: index.html");
+                    exit();
+                } else {
+                    echo "<p class='error-message'>Login gagal. Periksa kembali username dan password Anda.</p>";
+                }
+
+                $conn->close();
+            }
+        }
+        ?>
+</div>
+</div>
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>ADMIN</title>
     <style>
+         .capcay-container {
+            margin-right: 50px;
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
+            position: relative;
         }
 
         .login-container {
@@ -21,6 +71,7 @@
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
         }
 
         .login-container h2 {
@@ -71,6 +122,134 @@
             text-align: center;
         }
 
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+            animation: slideDown 0.5s ease forwards;
+            font-family: 'Arial', sans-serif;
+            /* Ganti font untuk h2 */
+        }
+
+        .moving-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #007bff, #6f42c1);
+            /* Gradient warna yang diinginkan */
+            z-index: -2;
+            /* Z-index diperkecil agar berada di bawah animasi circle */
+            animation: animateBackground 15s linear infinite;
+            /* Animasi berulang */
+        }
+
+        @keyframes animateBackground {
+            from {
+                background-position: 0 0;
+                /* Awal animasi */
+            }
+
+            to {
+                background-position: 0 100%;
+                /* Akhir animasi */
+            }
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+            animation: animateCircles 15s linear infinite;
+        }
+
+        .circle:nth-child(1) {
+            width: 50px;
+            height: 50px;
+            left: 10%;
+            animation-duration: 15s;
+        }
+
+        .circle:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            left: 70%;
+            animation-duration: 12s;
+        }
+
+        .circle:nth-child(3) {
+            width: 70px;
+            height: 70px;
+            left: 40%;
+            animation-duration: 10s;
+        }
+
+        .circle:nth-child(4) {
+            width: 60px;
+            height: 60px;
+            left: 80%;
+            animation-duration: 17s;
+        }
+
+        .circle:nth-child(5) {
+            width: 90px;
+            height: 90px;
+            left: 20%;
+            animation-duration: 14s;
+        }
+
+        .circle:nth-child(6) {
+            width: 120px;
+            height: 120px;
+            left: 50%;
+            animation-duration: 11s;
+        }
+
+        @keyframes animateCircles {
+            0% {
+                transform: translateY(100vh);
+                /* Muncul dari bawah layar */
+            }
+
+            100% {
+                transform: translateY(-100vh);
+                /* Menghilang di atas layar */
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         button {
             width: calc(100% - 20px);
             padding: 10px;
@@ -82,19 +261,49 @@
             cursor: pointer;
         }
 
+
         button:hover {
             background-color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="moving-background"></div>
+    <div class="floating-shapes">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <!-- Tambahkan bentuk lain sesuai kebutuhan -->
+    </div>
     <div class="login-container">
         <h2>ADMIN</h2>
         <form method="post">
             <input type="text" name="username" placeholder="Username">
             <input type="password" name="password" placeholder="Password">
-            <img src="capcay.php" alt="CAPTCHA Image">
+            
             <input type="text" name="capcay" placeholder="Masukkan kode CAPTCHA">
             <input type="submit" value="Login">
         </form>
@@ -103,44 +312,6 @@
             <p>Jika anda belum memiliki akun</p>
             <a href="Regis.php"><button>Registrasi</button></a>
         </div>
-        <?php
-       session_start();
-//ini buat masukin capcay nya ke login
-       if ($_SERVER["REQUEST_METHOD"] == "POST") {
-           $login_captcha = $_POST['capcay'] ?? '';
-           $captcha_session = $_SESSION["code"] ?? '';
-           
-           if ($login_captcha !== $captcha_session) {
-               echo "<p class='error-message'>CAPTCHA tidak valid.</p>";
-           } else {
-               $host = "localhost";
-               $username = "root";
-               $password = "";
-               $database = "uas_pwl";
-
-               $conn = mysqli_connect($host, $username, $password, $database);
-
-               if (!$conn) {
-                   die("Koneksi gagal: " . mysqli_connect_error());
-               }
-
-               $login_username = $_POST['username'] ?? '';
-               $login_password = $_POST['password'] ?? '';
-
-               $sql = "SELECT * FROM user WHERE username='$login_username' AND password='$login_password'";
-               $result = $conn->query($sql);
-
-               if ($result->num_rows > 0) {
-                   header("Location: index.html");
-                   exit();
-               } else {
-                   echo "<p class='error-message'>Login gagal. Periksa kembali username dan password Anda.</p>";
-               }
-
-               $conn->close();
-        }
-    }
-        ?>
     </div>
 
 </body>

@@ -18,7 +18,6 @@
         form {
             width: 400px;
             padding: 20px;
-            margin-right: 200px;
             margin-bottom: 80px;
             border-radius: 15px;
             background-color: #fff;
