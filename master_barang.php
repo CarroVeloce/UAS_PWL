@@ -113,6 +113,22 @@
 
         }
 
+        @keyframes fadeInTable {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container table {
+            opacity: 0;
+            animation: fadeInTable 0.5s ease forwards;
+        }
         .profile-container {
             position: fixed;
             top: 0;
@@ -131,7 +147,7 @@
         }
 
         .button-add,
-        .button-edit{
+        .button-edit {
             display: inline-block;
             padding: 8px 16px;
             text-align: center;
@@ -198,7 +214,7 @@
                     <th>HARGA</th>
                     <th>TANGGAL MASUK</th>
                     <th>GAMBAR</th>
-                    
+
                 </tr>
             </thead>
             <?php
@@ -212,15 +228,16 @@
             if (!$conn) {
                 die("Koneksi gagal: " . mysqli_connect_error());
             }
-            $delete_nobarang = mysqli_real_escape_string($conn, $_POST['delete_nobarang']);
 
-            // Query untuk menghapus berdasarkan nobarang
-            $sql = "DELETE FROM databarang WHERE nobarang = '$delete_nobarang'";
+            if (isset($_POST['delete_nobarang'])) {
+                $delete_nobarang = mysqli_real_escape_string($conn, $_POST['delete_nobarang']);
+                $sql = "DELETE FROM databarang WHERE nobarang = '$delete_nobarang'";
 
-            if (mysqli_query($conn, $sql)) {
-                echo "";
-            } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                if (mysqli_query($conn, $sql)) {
+                    echo "";
+                } else {
+                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                }
             }
 
             $sql = "SELECT nobarang, namabarang, jenisbarang, supplier, stok, harga, tanggalmasuk, gambar FROM databarang";
@@ -231,7 +248,7 @@
                     echo "<td>" . $row['nobarang'] . "</td>";
                     echo "<td>" . $row['namabarang'] . "</td>";
                     echo "<td>" . $row['jenisbarang'] . "</td>";
-                     echo "<td>" . $row['supplier'] . "</td>";
+                    echo "<td>" . $row['supplier'] . "</td>";
                     echo "<td>" . $row['stok'] . "</td>";
                     echo "<td>" . $row['harga'] . "</td>";
                     echo "<td>" . $row['tanggalmasuk'] . "</td>";
@@ -242,7 +259,7 @@
                     echo "<td>
                         <form method='post'>
                             <input type='hidden' name='delete_nobarang' value='" . $row['nobarang'] . "'>
-                            <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 5px 10px; border-radius: 4px;'>
+                            <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px;'>
                                 <i class='fas fa-trash-alt'></i>
                             </button>
                         </form>
