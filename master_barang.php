@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -184,6 +185,11 @@
         }
     </style>
 </head>
+<script>
+    function confirmDelete() {
+        return confirm('Apakah Anda yakin ingin menghapus data ini?');
+    }
+</script>
 
 <body>
     <div class="profile-container">
@@ -257,7 +263,7 @@
                     echo "<a href='edit.php?id=" . $row['nobarang'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
                     echo "</td>";
                     echo "<td>
-                        <form method='post'>
+                        <form method='post' onsubmit='return confirmDelete();'> <!-- Tambahkan onsubmit event -->
                             <input type='hidden' name='delete_nobarang' value='" . $row['nobarang'] . "'>
                             <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px;'>
                                 <i class='fas fa-trash-alt'></i>
