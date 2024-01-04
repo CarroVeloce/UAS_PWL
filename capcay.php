@@ -5,8 +5,9 @@ function generateCaptcha() {
     $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     $pass = array();
 
+    $length = 5; // Panjang CAPTCHA
     $panjangalpha = strlen($alphabet) - 1;
-    for ($i = 0; $i < 5; $i++) {
+    for ($i = 0; $i < $length; $i++) {
         $n = rand(0, $panjangalpha);
         $pass[] = $alphabet[$n];
     }
@@ -16,14 +17,23 @@ function generateCaptcha() {
 $code = generateCaptcha();
 $_SESSION["code"] = $code;
 
-$wh = imagecreatetruecolor(173, 50);
-$bgc = imagecolorallocate($wh, 22, 86, 165);
-imagefill($wh, 0, 0, $bgc);
+$width = 173;
+$height = 50;
+$font = 6;
+$fontWidth = imagefontwidth($font) * strlen($code);
+$fontHeight = imagefontheight($font);
 
-$fc = imagecolorallocate($wh, 223, 230, 233);
-imagestring($wh, 10, 50, 15, $code, $fc);
+$image = imagecreatetruecolor($width, $height);
+$bgColor = imagecolorallocate($image, 22, 86, 165);
+$textColor = imagecolorallocate($image, 223, 230, 233);
+
+imagefill($image, 0, 0, $bgColor);
+
+$x = ($width - $fontWidth) / 2;
+$y = ($height - $fontHeight) / 2;
+imagestring($image, $font, $x, $y, $code, $textColor);
 
 header("Content-type: image/png");
-imagepng($wh);
-imagedestroy($wh);
+imagepng($image);
+imagedestroy($image);
 ?>
