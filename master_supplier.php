@@ -206,7 +206,7 @@
             die("Koneksi gagal: " . mysqli_connect_error());
         }
 
-        $sql = "SELECT namasupplier, alamatsupplier, tlpsupplier, jenisbarang FROM databarang";
+        $sql = "SELECT namasupplier, alamatsupplier, tlpsupplier, jenisbarang FROM datasuppler";
         $result = mysqli_query($conn, $sql);
         
         if (mysqli_num_rows($result) > 0) {
@@ -219,7 +219,7 @@
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='7'>Tidak ada data mahasiswa.</td></tr>";
+            echo "<tr><td colspan='7'>Tidak ada data supplier.</td></tr>";
         }
 
         mysqli_close($conn);

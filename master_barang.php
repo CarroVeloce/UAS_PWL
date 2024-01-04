@@ -210,7 +210,7 @@
 
 <body>
     <div class="profile-container">
-        <p>JohnDoe</p>
+        <H4>N.CORP</H4>
     </div>
     <!-- Sidebar -->
     <div class="sidebar">
