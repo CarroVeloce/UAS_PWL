@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <style>
-   p {
+        p {
             font-size: 16px;
         }
 
@@ -109,6 +110,7 @@
             opacity: 0;
             animation: fadeInTable 0.5s ease forwards;
         }
+
         .profile-container {
             position: fixed;
             top: 0;
@@ -164,27 +166,30 @@
         }
 
         .sidebar a.active {
-        background: linear-gradient(to left, #007bff, #6f42c1);
-        /* Ganti gaya tab yang aktif di sini */
-    }
+            background: linear-gradient(to left, #007bff, #6f42c1);
+            /* Ganti gaya tab yang aktif di sini */
+        }
     </style>
 </head>
 
 <body>
+    <div class="profile-container">
+        <H4>N.CORP</H4>
+    </div>
     <!-- Sidebar -->
     <div class="sidebar">
         <h2>ADMIN</h2>
         <a href="index.html">Home</a>
         <a href="master_barang.php">Master Barang</a>
-        <a href="master_supplier.php" class="active">Master Supplier</a>
-        <a href="#master-distributor">Master Distributor</a>
+        <a href="master_supplier.php">Master Supplier</a>
+        <a href="master_distributor.php" class="active">Master Distributor</a>
     </div>
 
     <!-- Main Content -->
     <div class="container" style="margin-left: 250px;">
-        <h2>Data Supplier</h2>
-       <table>
-        <thead>
+        <h2>Data distributor</h2>
+        <table>
+            <thead>
                 <tr>
                     <th>NAMA TOKO</th>
                     <th>ALAMAT</th>
@@ -193,41 +198,42 @@
                     <th>NAMA BARANG</th>
                 </tr>
             </thead>
-   
 
-    <?php
-        $host = "localhost";
-        $username = "root";
-        $password = "";
-        $database = "uas_pwl";
 
-        $conn = mysqli_connect($host, $username, $password, $database);
+            <?php
+            $host = "localhost";
+            $username = "root";
+            $password = "";
+            $database = "uas_pwl";
 
-        if (!$conn) {
-            die("Koneksi gagal: " . mysqli_connect_error());
-        }
+            $conn = mysqli_connect($host, $username, $password, $database);
 
-        $sql = "SELECT namatoko, alamat, notlptoko, jenisbarang, namabarang FROM databarang";
-        $result = mysqli_query($conn, $sql);
-        
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_array($result)) {
-                echo "<tr>";
-                echo "<td>" . $row['namatoko'] . "</td>";
-                echo "<td>" . $row['alamat'] . "</td>";
-                echo "<td>" . $row['tlpsupplier'] . "</td>";
-                echo "<td>" . $row['jenisbarang'] . "</td>";
-                echo "<td>" . $row['namabarang'] . "</td>";
-                echo "</tr>";
+            if (!$conn) {
+                die("Koneksi gagal: " . mysqli_connect_error());
             }
-        } else {
-            echo "<tr><td colspan='7'>Tidak ada data mahasiswa.</td></tr>";
-        }
 
-        mysqli_close($conn);
-        ?>  
-        
-    </table>
+            $sql = "SELECT namatoko, alamat, notlptoko, jenisbarang, namabarang FROM datadistributor";
+            $result = mysqli_query($conn, $sql);
+
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_array($result)) {
+                    echo "<tr>";
+                    echo "<td>" . $row['namatoko'] . "</td>";
+                    echo "<td>" . $row['alamat'] . "</td>";
+                    echo "<td>" . $row['tlpsupplier'] . "</td>";
+                    echo "<td>" . $row['jenisbarang'] . "</td>";
+                    echo "<td>" . $row['namabarang'] . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='7'>Tidak ada data mahasiswa.</td></tr>";
+            }
+
+            mysqli_close($conn);
+            ?>
+
+        </table>
     </div>
 </body>
+
 </html>

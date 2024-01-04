@@ -218,7 +218,7 @@
         <a href="index.html">Home</a>
         <a href="master_barang.php" class="active">Master Barang</a>
         <a href="master_supplier.php">Master Supplier</a>
-        <a href="#master-distributor">Master Distributor</a>
+        <a href="master_distributor.php">Master Distributor</a>
     </div>
 
     <!-- Main Content -->

@@ -78,9 +78,7 @@
             margin: 5px 20px;
             text-align: center;
             font-family: 'Arial', sans-serif;
-            /* Ganti font untuk tombol */
             font-size: 16px;
-            /* Sesuaikan ukuran font */
         }
 
         input[type="submit"]:hover {
