@@ -186,10 +186,11 @@
        <table>
         <thead>
                 <tr>
-                    <th>NAMA</th>
+                    <th>NAMA TOKO</th>
                     <th>ALAMAT</th>
-                    <th>TELEPON</th>
-                    <th>JENISBARANG</th>
+                    <th>TELEPON TOKO</th>
+                    <th>JENIS BARANG</th>
+                    <th>NAMA BARANG</th>
                 </tr>
             </thead>
    
@@ -206,16 +207,17 @@
             die("Koneksi gagal: " . mysqli_connect_error());
         }
 
-        $sql = "SELECT namasupplier, alamatsupplier, tlpsupplier, jenisbarang FROM databarang";
+        $sql = "SELECT namatoko, alamat, notlptoko, jenisbarang, namabarang FROM databarang";
         $result = mysqli_query($conn, $sql);
         
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_array($result)) {
                 echo "<tr>";
-                echo "<td>" . $row['namasupplier'] . "</td>";
-                echo "<td>" . $row['alamatsupplier'] . "</td>";
+                echo "<td>" . $row['namatoko'] . "</td>";
+                echo "<td>" . $row['alamat'] . "</td>";
                 echo "<td>" . $row['tlpsupplier'] . "</td>";
                 echo "<td>" . $row['jenisbarang'] . "</td>";
+                echo "<td>" . $row['namabarang'] . "</td>";
                 echo "</tr>";
             }
         } else {
