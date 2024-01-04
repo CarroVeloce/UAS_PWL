@@ -52,6 +52,11 @@
             /* Padding top untuk sidebar */
         }
 
+        .sidebar a.active {
+            background: linear-gradient(to left, #007bff, #6f42c1);
+            /* Ganti gaya tab yang aktif di sini */
+        }
+
         .sidebar a {
             padding: 10px;
             display: block;
@@ -130,6 +135,7 @@
             opacity: 0;
             animation: fadeInTable 0.5s ease forwards;
         }
+
         .profile-container {
             position: fixed;
             top: 0;
@@ -189,6 +195,7 @@
     function confirmDelete() {
         return confirm('Apakah Anda yakin ingin menghapus data ini?');
     }
+
 </script>
 
 <body>
@@ -199,7 +206,7 @@
     <div class="sidebar">
         <h2>ADMIN</h2>
         <a href="index.html">Home</a>
-        <a href="master_barang.php">Master Barang</a>
+        <a href="master_barang.php" class="active">Master Barang</a>
         <a href="master_supplier.php">Master Supplier</a>
         <a href="#master-distributor">Master Distributor</a>
     </div>
@@ -259,9 +266,7 @@
                     echo "<td>" . $row['harga'] . "</td>";
                     echo "<td>" . $row['tanggalmasuk'] . "</td>";
                     echo "<td><img src='" . $row['gambar'] . "' width='100'></td>";
-                    echo "<td>";
-                    echo "<a href='edit.php?id=" . $row['nobarang'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
-                    echo "</td>";
+                    echo "<td><a href='edit_masterbarang.php?nobarang=" . $row['nobarang'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
                     echo "<td>
                         <form method='post' onsubmit='return confirmDelete();'> <!-- Tambahkan onsubmit event -->
                             <input type='hidden' name='delete_nobarang' value='" . $row['nobarang'] . "'>

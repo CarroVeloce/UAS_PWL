@@ -162,6 +162,11 @@
         .button-edit:hover {
             background-color: darken(#007bff, 10%);
         }
+
+        .sidebar a.active {
+        background: linear-gradient(to left, #007bff, #6f42c1);
+        /* Ganti gaya tab yang aktif di sini */
+    }
     </style>
 </head>
 
@@ -171,7 +176,7 @@
         <h2>ADMIN</h2>
         <a href="index.html">Home</a>
         <a href="master_barang.php">Master Barang</a>
-        <a href="master_supplier.php">Master Supplier</a>
+        <a href="master_supplier.php" class="active">Master Supplier</a>
         <a href="#master-distributor">Master Distributor</a>
     </div>
 
