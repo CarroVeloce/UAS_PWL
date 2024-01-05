@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Admin Dashboard</title>
     <style>
         p {
             font-size: 16px;
         }
-
         table,
         th,
         td,
@@ -19,7 +19,6 @@
             color: #333;
         }
 
-        /* New styles for sidebar */
         .sidebar {
             position: fixed;
             top: 0;
@@ -33,14 +32,28 @@
         }
 
         .sidebar a {
-            padding: 10px;
+            padding: 25px 20px;
             display: block;
             color: #fff;
             text-decoration: none;
+            transition: background 0.3s ease, border-radius 0.3s ease, padding 0.3s ease;
         }
 
+        .sidebar a.active {     
+            background: linear-gradient(to left, #6f42c1, #6f42c1);
+            border-radius: 15px;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+        
+        
         .sidebar a:hover {
-            background: linear-gradient(to left, #007bff, #6f42c1);
+            background: rgba(255, 255, 255, 0.5); /* Putih dengan tingkat transparansi 0.5 (50%) */
+            border-radius: 15px;
+            margin-left: 15px;
+            margin-right: 15px;
+            padding: 25px 20px; /* Menambahkan padding yang sama dengan kondisi default */
+            color: #333;
         }
 
         .sidebar h2 {
@@ -125,7 +138,6 @@
 
         .action-buttons {
             white-space: nowrap;
-            /* Mencegah pemisahan baris */
         }
 
         .button-add,
@@ -164,11 +176,6 @@
         .button-edit:hover {
             background-color: darken(#007bff, 10%);
         }
-
-        .sidebar a.active {
-            background: linear-gradient(to left, #007bff, #6f42c1);
-            /* Ganti gaya tab yang aktif di sini */
-        }
     </style>
 </head>
 
@@ -179,10 +186,11 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h2>ADMIN</h2>
-        <a href="index.html">Home</a>
-        <a href="master_barang.php">Master Barang</a>
-        <a href="master_supplier.php">Master Supplier</a>
-        <a href="master_distributor.php" class="active">Master Distributor</a>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="master_barang.php"><i class="fas fa-box"></i> Master Barang</a>
+        <a href="master_supplier.php"><i class="fas fa-users"></i> Master Supplier</a>
+        <a href="master_distributor.php" class="active"><i class="fas fa-store"></i> Master Distributor</a>
+        <a href="login.php"><i class="fas fa-sign-in-alt"></i> Login</a>
     </div>
 
     <!-- Main Content -->

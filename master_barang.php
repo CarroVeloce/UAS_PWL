@@ -52,20 +52,29 @@
             /* Padding top untuk sidebar */
         }
 
-        .sidebar a.active {
-            background: linear-gradient(to left, #007bff, #6f42c1);
-            /* Ganti gaya tab yang aktif di sini */
-        }
-
         .sidebar a {
-            padding: 10px;
+            padding: 25px 20px;
             display: block;
             color: #fff;
             text-decoration: none;
+            transition: background 0.3s ease, border-radius 0.3s ease, padding 0.3s ease;
         }
 
+        .sidebar a.active {     
+            background: linear-gradient(to left, #6f42c1, #6f42c1);
+            border-radius: 15px;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+        
+        
         .sidebar a:hover {
-            background: linear-gradient(to left, #007bff, #6f42c1);
+            background: rgba(255, 255, 255, 0.5); /* Putih dengan tingkat transparansi 0.5 (50%) */
+            border-radius: 15px;
+            margin-left: 15px;
+            margin-right: 15px;
+            padding: 25px 20px; /* Menambahkan padding yang sama dengan kondisi default */
+            color: #333;
         }
 
         .sidebar h2 {
@@ -153,7 +162,7 @@
             /* Mencegah pemisahan baris */
         }
 
-       
+
         .button-edit {
             display: inline-block;
             padding: 8px 16px;
@@ -215,10 +224,11 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h2>ADMIN</h2>
-        <a href="index.html">Home</a>
-        <a href="master_barang.php" class="active">Master Barang</a>
-        <a href="master_supplier.php">Master Supplier</a>
-        <a href="master_distributor.php">Master Distributor</a>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="master_barang.php" class="active"><i class="fas fa-box"></i> Master Barang</a>
+        <a href="master_supplier.php"><i class="fas fa-users"></i> Master Supplier</a>
+        <a href="master_distributor.php"><i class="fas fa-store"></i> Master Distributor</a>
+        <a href="login.php"><i class="fas fa-sign-in-alt"></i> Login</a>
     </div>
 
     <!-- Main Content -->
@@ -227,10 +237,13 @@
         <a href="input_masterbarang.php" class="button-add"><i class="fas fa-plus"></i> Tambah</a>
         <h2>Daftar Barang</h2>
         <table>
-        <form method="GET" action="" style="margin-bottom: 20px;">
-    <input type="text" name="search" placeholder="Cari berdasarkan No. Barang atau Nama Barang" style="padding: 8px;">
-    <button type="submit" style="padding: 10px 12px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; margin-left: 5px; margin-bottom: 20px; "><i class="fas fa-search"></i> Cari</button>
-</form>
+            <form method="GET" action="" style="margin-bottom: 20px;">
+                <input type="text" name="search" placeholder="Cari berdasarkan No. Barang atau Nama Barang"
+                    style="padding: 8px;">
+                <button type="submit"
+                    style="padding: 10px 12px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; margin-left: 5px; margin-bottom: 20px; "><i
+                        class="fas fa-search"></i> Cari</button>
+            </form>
             <thead>
                 <tr>
                     <th>NO BARANG</th>
@@ -255,7 +268,7 @@
             if (!$conn) {
                 die("Koneksi gagal: " . mysqli_connect_error());
             }
-            
+
 
             if (isset($_POST['delete_nobarang'])) {
                 $delete_nobarang = mysqli_real_escape_string($conn, $_POST['delete_nobarang']);
@@ -274,21 +287,21 @@
             } else {
                 $sql = "SELECT nobarang, namabarang, jenisbarang, supplier, stok, harga, tanggalmasuk, gambar FROM databarang";
             }
-            
+
             $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<tr>";
-                                echo "<td>" . $row['nobarang'] . "</td>";
-                                echo "<td>" . $row['namabarang'] . "</td>";
-                                echo "<td>" . $row['jenisbarang'] . "</td>";
-                                echo "<td>" . $row['supplier'] . "</td>";
-                                echo "<td>" . $row['stok'] . "</td>";
-                                echo "<td>" . $row['harga'] . "</td>";
-                                echo "<td>" . $row['tanggalmasuk'] . "</td>";
-                                echo "<td><img src='" . $row['gambar'] . "' width='100'></td>";
-                                echo "<td><a href='edit_masterbarang.php?nobarang=" . $row['nobarang'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
-                                echo "<td>
+                    echo "<td>" . $row['nobarang'] . "</td>";
+                    echo "<td>" . $row['namabarang'] . "</td>";
+                    echo "<td>" . $row['jenisbarang'] . "</td>";
+                    echo "<td>" . $row['supplier'] . "</td>";
+                    echo "<td>" . $row['stok'] . "</td>";
+                    echo "<td>" . $row['harga'] . "</td>";
+                    echo "<td>" . $row['tanggalmasuk'] . "</td>";
+                    echo "<td><img src='" . $row['gambar'] . "' width='100'></td>";
+                    echo "<td><a href='edit_masterbarang.php?nobarang=" . $row['nobarang'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
+                    echo "<td>
                                     <form method='post' onsubmit='return confirmDelete();'> <!-- Tambahkan onsubmit event -->
                                         <input type='hidden' name='delete_nobarang' value='" . $row['nobarang'] . "'>
                                         <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px; margin-left: 10px'>
@@ -296,7 +309,7 @@
                                         </button>
                                     </form>
                                 </td>";
-                                echo "</tr>";
+                    echo "</tr>";
                 }
             } else {
                 echo "<tr><td colspan='9'>Tidak ada data barang.</td></tr>";

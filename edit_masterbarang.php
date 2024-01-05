@@ -219,10 +219,9 @@
         <div class="square"></div>
         <div class="square"></div>
         <div class="square"></div>
-        <!-- Tambahkan bentuk lain sesuai kebutuhan -->
+        
     </div>
     <div class="container" >
-        <h2>Edit Detail Barang</h2>
         <?php
         if (isset($_GET["nobarang"])) {
             $nobarang = $_GET["nobarang"];
