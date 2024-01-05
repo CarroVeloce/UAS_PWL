@@ -211,6 +211,24 @@
             if (!$conn) {
                 die("Koneksi gagal: " . mysqli_connect_error());
             }
+            if (isset($_POST['delete_namatoko'])) {
+                $delete_namatoko = mysqli_real_escape_string($conn, $_POST['delete_namatoko']);
+                $sql = "DELETE FROM datadistributor WHERE namatoko = '$delete_namatoko'";
+
+                if (mysqli_query($conn, $sql)) {
+                    echo "";
+                } else {
+                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                }
+            }
+        
+            if (isset($_GET['search']) && !empty($_GET['search'])) {
+                $search = $_GET['search'];
+                $sql = "SELECT namatoko, alamat, notlptoko, jenisbarang, namabarang FROM datadistributor WHERE namatoko LIKE '%$search%'";
+            } else {
+                $sql = "SELECT namatoko, alamat, notlptoko, jenisbarang, namabarang FROM datadistributor";
+            }
+            $result = mysqli_query($conn, $sql);
 
             $sql = "SELECT namatoko, alamat, notlptoko, jenisbarang, namabarang FROM datadistributor";
             $result = mysqli_query($conn, $sql);
@@ -223,6 +241,15 @@
                     echo "<td>" . $row['tlpsupplier'] . "</td>";
                     echo "<td>" . $row['jenisbarang'] . "</td>";
                     echo "<td>" . $row['namabarang'] . "</td>";
+                    echo "<td><a href='edit_masterdistributor.php?namatoko=" . $row['namatoko'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
+                                echo "<td>
+                                    <form method='post' onsubmit='return confirmDelete();'> <!-- Tambahkan onsubmit event -->
+                                        <input type='hidden' name='delete_namatoko' value='" . $row['namatoko'] . "'>
+                                        <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px; margin-left: 10px'>
+                                            <i class='fas fa-trash-alt'></i>
+                                        </button>
+                                    </form>
+                                </td>";
                     echo "</tr>";
                 }
             } else {
