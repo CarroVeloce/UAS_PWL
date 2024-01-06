@@ -151,7 +151,7 @@
             right: 0;
             padding: 10px;
             padding-left: 1500px;
-            background-color: #007bff;
+            background: linear-gradient(to right, #007bff, #6f42c1);
             color: #fff;
             box-shadow: 0 9px 7px rgba(0, 0, 0, 0.1);
         }
@@ -283,7 +283,7 @@
 
             if (isset($_GET['search']) && !empty($_GET['search'])) {
                 $search = $_GET['search'];
-                $sql = "SELECT nobarang, namabarang, jenisbarang, supplier, stok, harga, tanggalmasuk, gambar FROM databarang WHERE nobarang LIKE '%$search%' OR namabarang LIKE '%$search%'";
+                $sql = "SELECT nobarang, namabarang, jenisbarang, supplier, stok, harga, tanggalmasuk, gambar FROM databarang WHERE nobarang LIKE '%$search%' OR namabarang LIKE '%$search%' OR jenisbarang LIKE '%$search%'";
             } else {
                 $sql = "SELECT nobarang, namabarang, jenisbarang, supplier, stok, harga, tanggalmasuk, gambar FROM databarang";
             }
