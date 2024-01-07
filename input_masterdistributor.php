@@ -205,19 +205,21 @@
         }
 
         .select-wrapper {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
         }
 
-        .select-wrapper label,
         .select-wrapper select {
-            border-radius: 5px;
-            width: 95%;
-            margin: 5px 20px;
-            text-align: left;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: calc(100% - 20px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
             font-family: 'Arial', sans-serif;
             font-size: 16px;
+            cursor: pointer;
         }
 
         /* Style untuk tanda panah di bagian dropdown */
@@ -250,40 +252,30 @@
         <!-- Tambahkan bentuk lain sesuai kebutuhan -->
     </div>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-        <h2>Form Input Barang</h2>
-        
-        <label for="nobarang">NO BARANG:</label>
-        <input type="number" id="nobarang" name="nobarang">
+        <h2>Form Input Distributor</h2>
+        <label for="namatoko">NAMA TOKO:</label>
+        <input type="text" id="namatoko" name="namatoko">
 
-        <label for="namabarang">NAMA BARANG:</label>
-        <input type="text" id="namabarang" name="namabarang">
+        <label for="alamat">ALAMAT:</label>
+        <input type="text" id="alamat" name="alamat">
+
+        <label for="notlptoko">NOMOR TELEPON TOKO:</label>
+        <input type="number" id="notlptoko" name="notlptoko">
 
         <div class="select-wrapper">
             <label for="jenisbarang">JENIS BARANG:</label>
-            <select id="jenisbarang" name="jenisbarang">
-                <option value="CPU">CPU</option>
-                <option value="GPU">GPU</option>
-                <option value="RAM">RAM</option>
-                <option value="SSD">SSD</option>
+            <select id="jenisbarang" name="jenisbarang[]" multiple>
+                <option value="Pilihan 1">Pilihan 1</option>
+                <option value="Pilihan 2">Pilihan 2</option>
+                <option value="Pilihan 3">Pilihan 3</option>
+                <!-- Tambahkan lebih banyak pilihan jika diperlukan -->
             </select>
-            <label for="supplier">SUPPLIER:</label>
-            <input type="text" id="supplier" name="supplier">
-
-            <label for="stok">STOK:</label>
-            <input type="number" id="stok" name="stok">
-
-            <label for="harga">HARGA:</label>
-            <input type="number" id="harga" name="harga">
-
-            <label for="tanggalmasuk">TANGGAL MASUK:</label>
-            <input type="date" id="tanggalmasuk" name="tanggalmasuk">
-
-            <label for="gambar">GAMBAR:</label>
-            <input type="file" id="gambar" name="gambar">
+            <label for="namabarang">NAMA BARANG:</label>
+            <input type="text" id="namabarang" name="namabarang">
         </div>
 
         <input type="submit" value="Submit">
-        <a href="master_barang.php"
+        <a href="master_distributor.php"
             style="text-decoration: none; display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: #007bff; color: #fff; border-radius: 3px;">Back</a>
 
     </form>
@@ -302,39 +294,21 @@
 
     // Form handling untuk insert data ke dalam tabel databarang
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nobarang = $_POST['nobarang'];
+        $namatoko = $_POST['namatoko'];
+        $alamat = $_POST['alamat'];
+        $notlptoko = $_POST['notlptoko'];
+        $jenisbarang = implode(', ', $_POST['jenisbarang']); // Gabungkan multiple values menjadi string
         $namabarang = $_POST['namabarang'];
-        $jenisbarang = $_POST['jenisbarang'];
-        $supplier = $_POST['supplier'];
-        $stok = $_POST['stok'];
-        $harga = $_POST['harga'];
-        $tanggalmasuk = $_POST['tanggalmasuk'];
 
-        $sql = "INSERT INTO databarang (nobarang, namabarang, jenisbarang, supplier, stok, harga, tanggalmasuk)
-                VALUES ('$nobarang', '$namabarang', '$jenisbarang', '$supplier', '$stok', '$harga', '$tanggalmasuk')";
+        $sql = "INSERT INTO datadistributor (namatoko, alamat, notlptoko, jenisbarang, namabarang)
+        VALUES ('$namatoko', '$alamat', '$notlptoko', '$jenisbarang', '$namabarang')";
 
         if (mysqli_query($conn, $sql)) {
             echo "";
-
-            if (isset($_FILES["gambar"]) && $_FILES["gambar"]["error"] == 0) {
-                $target_dir = "gambarproduk/"; // Direktori untuk menyimpan file gambar produk
-                $target_file = $target_dir . basename($_FILES["gambar"]["name"]); // Path lengkap file gambar
-    
-                // Move file yang diunggah ke lokasi yang diinginkan
-                if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-                    // echo "File " . htmlspecialchars(basename($_FILES["gambar"]["name"])) . "";
-                    // Lakukan query INSERT dengan menambahkan $target_file ke dalam database
-                    $sql_gambar = "UPDATE databarang SET gambar='$target_file' WHERE nobarang='$nobarang'";
-                    mysqli_query($conn, $sql_gambar);
-                } else {
-                    echo "Maaf, terjadi kesalahan saat mengunggah file.";
-                }
-            }
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     }
-    mysqli_close($conn);
     ?>
 </body>
 

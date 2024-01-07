@@ -46,21 +46,6 @@ noinduk, namasup, alamat, telepon, fax, email, tanggalmasuk, bukti FROM databara
 
         if (mysqli_query($conn, $sql)) {
             echo "Data berhasil ditambahkan.";
-            
-            if(isset($_FILES["bukti"]) && $_FILES["bukti"]["error"] == 0) {
-                $target_dir = "gambarproduk/"; // Direktori untuk menyimpan file bukti produk
-                $target_file = $target_dir . basename($_FILES["bukti"]["name"]); // Path lengkap file bukti
-
-                // Move file yang diunggah ke lokasi yang diinginkan
-                if (move_uploaded_file($_FILES["bukti"]["tmp_name"], $target_file)) {
-                    echo "File " . htmlspecialchars(basename($_FILES["bukti"]["name"])) . " berhasil diunggah.";
-                    // Lakukan query INSERT dengan menambahkan $target_file ke dalam database
-                    $sql_bukti = "UPDATE databarang SET bukti='$target_file' WHERE noinduk='$noinduk'";
-                    mysqli_query($conn, $sql_bukti);
-                } else {
-                    echo "Maaf, terjadi kesalahan saat mengunggah file.";
-                }
-            }
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }

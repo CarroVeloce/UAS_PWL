@@ -193,10 +193,17 @@
         <a href="login.php"><i class="fas fa-sign-in-alt"></i> Login</a>
     </div>
 
-    <!-- Main Content -->
     <div class="container" style="margin-left: 250px;">
-        <h2>Data distributor</h2>
+        <a href="input_masterdistributor.php" class="button-add"><i class="fas fa-plus"></i> Tambah</a>
+        <h2>Daftar Distributor</h2>
         <table>
+            <form method="GET" action="" style="margin-bottom: 20px;">
+                <input type="text" name="search" placeholder="Cari berdasarkan Nama Toko"
+                    style="padding: 8px;">
+                <button type="submit"
+                    style="padding: 10px 12px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; margin-left: 5px; margin-bottom: 20px; "><i
+                        class="fas fa-search"></i> Cari</button>
+            </form>
             <thead>
                 <tr>
                     <th>NAMA TOKO</th>
@@ -246,7 +253,7 @@
                     echo "<tr>";
                     echo "<td>" . $row['namatoko'] . "</td>";
                     echo "<td>" . $row['alamat'] . "</td>";
-                    echo "<td>" . $row['tlpsupplier'] . "</td>";
+                    echo "<td>" . $row['notlptoko'] . "</td>";
                     echo "<td>" . $row['jenisbarang'] . "</td>";
                     echo "<td>" . $row['namabarang'] . "</td>";
                     echo "<td><a href='edit_masterdistributor.php?namatoko=" . $row['namatoko'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
