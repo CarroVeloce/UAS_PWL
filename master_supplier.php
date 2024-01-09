@@ -222,7 +222,7 @@
             
             if (isset($_POST['delete_namasupplier'])) {
                 $delete_namasupplier = mysqli_real_escape_string($conn, $_POST['delete_namasupplier']);
-                $sql = "DELETE FROM databarang WHERE namasupplier = '$delete_namasupplier'";
+                $sql = "DELETE FROM datasuppler WHERE namasupplier = '$delete_namasupplier'";
 
                 if (mysqli_query($conn, $sql)) {
                     echo "";
