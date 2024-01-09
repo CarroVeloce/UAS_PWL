@@ -195,6 +195,7 @@
 
     <!-- Main Content -->
     <div class="container" style="margin-left: 250px;">
+    <a href="input_mastersupplier.php" class="button-add"><i class="fas fa-plus"></i> Tambah</a>
         <h2>Data Supplier</h2>
         <table>
             <thead>
