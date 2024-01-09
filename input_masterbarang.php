@@ -265,6 +265,7 @@
                 <option value="GPU">GPU</option>
                 <option value="RAM">RAM</option>
                 <option value="SSD">SSD</option>
+                <option value="SSD">HDD</option>
             </select>
             <label for="supplier">SUPPLIER:</label>
             <input type="text" id="supplier" name="supplier">
@@ -272,7 +273,7 @@
             <label for="stok">STOK:</label>
             <input type="number" id="stok" name="stok">
 
-            <label for="harga">HARGA:</label>
+            <label for="harga">HARGA (masukan dalam dollar):</label>
             <input type="number" id="harga" name="harga">
 
             <label for="tanggalmasuk">TANGGAL MASUK:</label>

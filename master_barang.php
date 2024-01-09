@@ -176,7 +176,7 @@
             text-decoration: none;
             border-radius: 4px;
             transition: background-color 0.3s ease;
-            margin-left: 20px;
+        
         }
 
         .button-add {
@@ -269,6 +269,7 @@
                 die("Koneksi gagal: " . mysqli_connect_error());
             }
 
+            $kurs_usd_to_idr = 15050;
 
             if (isset($_POST['delete_nobarang'])) {
                 $delete_nobarang = mysqli_real_escape_string($conn, $_POST['delete_nobarang']);
@@ -297,14 +298,14 @@
                     echo "<td>" . $row['jenisbarang'] . "</td>";
                     echo "<td>" . $row['supplier'] . "</td>";
                     echo "<td>" . $row['stok'] . "</td>";
-                    echo "<td>" . $row['harga'] . "</td>";
+                    echo "<td>" . 'Rp ' . number_format($row['harga'] * $kurs_usd_to_idr, 0, ',', '.') . "</td>";
                     echo "<td>" . $row['tanggalmasuk'] . "</td>";
                     echo "<td><img src='" . $row['gambar'] . "' width='100'></td>";
                     echo "<td><a href='edit_masterbarang.php?nobarang=" . $row['nobarang'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
                     echo "<td>
                                     <form method='post' onsubmit='return confirmDelete();'> <!-- Tambahkan onsubmit event -->
                                         <input type='hidden' name='delete_nobarang' value='" . $row['nobarang'] . "'>
-                                        <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px; margin-left: 10px'>
+                                        <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px; '>
                                             <i class='fas fa-trash-alt'></i>
                                         </button>
                                     </form>

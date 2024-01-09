@@ -148,7 +148,6 @@
             text-decoration: none;
             border-radius: 4px;
             transition: background-color 0.3s ease;
-            margin-right: 5px;
         }
 
         .button-add {
@@ -157,6 +156,7 @@
             right: 0;
             background-color: #007bff;
             color: #fff;
+            margin-top: 60px;
             padding: 10px 10px;
             margin-right: 20px;
             border-radius: 5px;
@@ -171,6 +171,7 @@
         .button-edit {
             background-color: #007bff;
             color: #fff;
+            margin-left:px ;
         }
 
         .button-edit:hover {
@@ -243,9 +244,7 @@
             } else {
                 $sql = "SELECT namatoko, alamat, notlptoko, jenisbarang, namabarang FROM datadistributor";
             }
-            $result = mysqli_query($conn, $sql);
-
-            $sql = "SELECT namatoko, alamat, notlptoko, jenisbarang, namabarang FROM datadistributor";
+        
             $result = mysqli_query($conn, $sql);
 
             if (mysqli_num_rows($result) > 0) {
@@ -257,13 +256,13 @@
                     echo "<td>" . $row['jenisbarang'] . "</td>";
                     echo "<td>" . $row['namabarang'] . "</td>";
                     echo "<td><a href='edit_masterdistributor.php?namatoko=" . $row['namatoko'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
-                                echo "<td>
-                                    <form method='post' onsubmit='return confirmDelete();'> <!-- Tambahkan onsubmit event -->
-                                        <input type='hidden' name='delete_namatoko' value='" . $row['namatoko'] . "'>
-                                        <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px; margin-left: 10px'>
-                                            <i class='fas fa-trash-alt'></i>
-                                        </button>
-                                    </form>
+                    echo "<td>
+                            <form method='post' onsubmit='return confirmDelete();'> <!-- Tambahkan onsubmit event -->
+                                <input type='hidden' name='delete_namatoko' value='" . $row['namatoko'] . "'>
+                                 <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px;'>
+                                 <i class='fas fa-trash-alt'></i>
+                                    </button>
+                                        </form>
                                 </td>";
                     echo "</tr>";
                 }

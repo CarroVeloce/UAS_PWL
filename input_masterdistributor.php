@@ -19,10 +19,8 @@
             width: 400px;
             padding: 20px;
             border-radius: 15px;
-            /* Lebih rounded */
             background-color: #fff;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            /* Efek 3D */
             animation: fadeIn 0.5s ease forwards;
             text-align: center;
             position: relative;

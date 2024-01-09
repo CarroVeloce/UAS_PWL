@@ -151,7 +151,6 @@
             text-decoration: none;
             border-radius: 4px;
             transition: background-color 0.3s ease;
-            margin-right: 5px;
         }
 
         .button-add {
@@ -161,7 +160,6 @@
             background-color: #007bff;
             color: #fff;
             padding: 10px 10px;
-            margin-right: 20px;
             border-radius: 5px;
             align-items: center;
         }
@@ -169,7 +167,6 @@
         .button-add i {
             margin-right: 5px;
         }
-
 
         .button-edit {
             background-color: #007bff;
@@ -252,7 +249,7 @@
                     echo "<td>
                     <form method='post' onsubmit='return confirmDelete();'> <!-- Tambahkan onsubmit event -->
                         <input type='hidden' name='delete_namasupplier' value='" . $row['namasupplier'] . "'>
-                        <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px; margin-left: 10px'>
+                        <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px; '>
                             <i class='fas fa-trash-alt'></i>
                         </button>
                     </form>
