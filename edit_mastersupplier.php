@@ -219,12 +219,13 @@
         <div class="square"></div>
         <div class="square"></div>
         <div class="square"></div>
-
+        
     </div>
-    <div class="container">
+    <div class="container" >
         <?php
-        if (isset($_GET["namasupplier"])) {
-            $namasupplier = $_GET["namasupplier"];
+
+        if (isset($_GET["idsupplier"])) {
+            $idsupplier = $_GET["idsupplier"];
             $host = "localhost";
             $username = "root";
             $password = "";
@@ -236,13 +237,13 @@
                 die("Koneksi gagal: " . mysqli_connect_error());
             }
 
-            $sql = "SELECT * FROM datasuppler WHERE namasupplier = $namasupplier";
+            $sql = "SELECT * FROM datasuppler WHERE idsupplier = $idsupplier";
             $result = mysqli_query($conn, $sql);
 
             if (mysqli_num_rows($result) == 1) {
                 $row = mysqli_fetch_array($result);
             } else {
-                echo "Data toko tidak ditemukan.";
+                echo "Data barang tidak ditemukan.";
                 exit;
             }
 
@@ -251,13 +252,15 @@
                 $new_alamatsupplier = $_POST['new_alamatsupplier'];
                 $new_tlpsupplier = $_POST['new_tlpsupplier'];
                 $new_jenisbarang = $_POST['new_jenisbarang'];
-           
-
-                if (empty($new_namasupplier) || empty($new_alamatsupplier) || empty($new_tlpsupplier) || empty($new_jenisbarang)) {
+            
+                if (empty($new_namasupplier) || empty($new_jenisbarang) || empty($new_alamatsupplier) || empty($new_tlpsupplier)) {
                     echo "Semua kolom harus diisi. Silakan isi semua data.";
+                } else if (!is_numeric($new_tlpsupplier)) {
+                    echo "Harap masukkan angka untuk tlpsupplier dan Harga.";
                 } else {
-                    $update_sql = "UPDATE datasuppler SET namasupplier = '$new_namasupplier', alamatsupplier = '$new_alamatsupplier', tlpsupplier = '$new_tlpsupplier', jenisbarang = '$new_jenisbarang' WHERE namasupplier = $namasupplier";
-
+            
+                    $update_sql = "UPDATE datasuppler SET namasupplier = '$new_namasupplier', alamatsupplier = '$new_alamatsupplier', tlpsupplier = '$new_tlpsupplier', jenisbarang ='$new_jenisbarang' WHERE idsupplier = $idsupplier";
+            
                     if (mysqli_query($conn, $update_sql)) {
                         echo "Data barang berhasil diperbarui. <a href='master_supplier.php'> Kembali</a>";
                         exit;
@@ -266,26 +269,24 @@
                     }
                 }
             }
+            
             mysqli_close($conn);
         }
         ?>
-
+         
         <form method="post">
-            <h2>Form Edit Barang</h2>
-            <label for="new_namasupplier">Nama Toko:</label>
-            <input type="text" name="new_namasupplier"
-                value="<?php echo isset($row['namasupplier']) ? $row['namasupplier'] : ''; ?>"><br>
+        <h2>Form Edit Barang</h2>
+            <label for="new_namasupplier">Nama Barang:</label>
+            <input type="text" name="new_namasupplier" value="<?php echo $row['namasupplier']; ?>"><br>
 
             <label for="new_alamatsupplier">alamatsupplier:</label>
-            <input type="text" name="new_alamatsupplier" value="<?php echo isset($row['alamatsupplier']) ? $row['alamatsupplier'] : ''; ?>"><br>
+            <input type="text" name="new_alamatsupplier" value="<?php echo $row['alamatsupplier']; ?>"><br>
 
-            <label for="new_tlpsupplier">No Telp Toko:</label>
-            <input type="text" name="new_tlpsupplier"
-                value="<?php echo isset($row['tlpsupplier']) ? $row['tlpsupplier'] : ''; ?>"><br>
+            <label for="new_tlpsupplier">tlpsupplier:</label>
+            <input type="number" name="new_tlpsupplier" value="<?php echo $row['tlpsupplier']; ?>"><br>
 
             <label for="new_jenisbarang">Jenis Barang:</label>
-            <input type="text" name="new_jenisbarang"
-                value="<?php echo isset($row['jenisbarang']) ? $row['jenisbarang'] : ''; ?>"><br>
+            <input type="text" name="new_jenisbarang" value="<?php echo $row['jenisbarang']; ?>"><br>
 
             <input type="submit" value="Simpan Perubahan">
         </form>

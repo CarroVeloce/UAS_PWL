@@ -220,9 +220,9 @@
                 die("Koneksi gagal: " . mysqli_connect_error());
             }
             
-            if (isset($_POST['delete_namasupplier'])) {
-                $delete_namasupplier = mysqli_real_escape_string($conn, $_POST['delete_namasupplier']);
-                $sql = "DELETE FROM datasuppler WHERE namasupplier = '$delete_namasupplier'";
+            if (isset($_POST['delete_idsupplier'])) {
+                $delete_idsupplier = mysqli_real_escape_string($conn, $_POST['delete_idsupplier']);
+                $sql = "DELETE FROM datasuppler WHERE idsupplier = '$delete_idsupplier'";
 
                 if (mysqli_query($conn, $sql)) {
                     echo "";
@@ -233,9 +233,9 @@
         
             if (isset($_GET['search']) && !empty($_GET['search'])) {
                 $search = $_GET['search'];
-                $sql = "SELECT namasupplier, alamatsupplier, tlpsupplier, jenisbarang FROM datasuppler WHERE namasupplier LIKE '%$search%'";
+                $sql = "SELECT idsupplier,namasupplier, alamatsupplier, tlpsupplier, jenisbarang FROM datasuppler WHERE idsupplier LIKE '%$search%' OR namasupplier LIKE '%$search%' OR jenisbarang LIKE '%$search%'";
             } else {
-                $sql = "SELECT namasupplier, alamatsupplier, tlpsupplier, jenisbarang FROM datasuppler";
+                $sql = "SELECT idsupplier,namasupplier, alamatsupplier, tlpsupplier, jenisbarang FROM datasuppler";
             }
             $result = mysqli_query($conn, $sql);
 
@@ -246,10 +246,10 @@
                     echo "<td>" . $row['alamatsupplier'] . "</td>";
                     echo "<td>" . $row['tlpsupplier'] . "</td>";
                     echo "<td>" . $row['jenisbarang'] . "</td>";
-                    echo "<td><a href='edit_mastersupplier.php?namasupplier=" . $row['namasupplier'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
+                    echo "<td><a href='edit_mastersupplier.php?idsupplier=" . $row['idsupplier'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
                     echo "<td>
                     <form method='post' onsubmit='return confirmDelete();'> 
-                        <input type='hidden' name='delete_namasupplier' value='" . $row['namasupplier'] . "'>
+                        <input type='hidden' name='delete_idsupplier' value='" . $row['idsupplier'] . "'>
                         <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px; '>
                             <i class='fas fa-trash-alt'></i>
                         </button>
