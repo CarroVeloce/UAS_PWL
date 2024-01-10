@@ -186,7 +186,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h2>ADMIN</h2>
-        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="index.php"><i class="fas fa-home"></i> Home</a>
         <a href="master_barang.php"><i class="fas fa-box"></i> Master Barang</a>
         <a href="master_supplier.php" class="active"><i class="fas fa-users"></i> Master Supplier</a>
         <a href="master_distributor.php"><i class="fas fa-store"></i> Master Distributor</a>
@@ -248,7 +248,7 @@
                     echo "<td>" . $row['jenisbarang'] . "</td>";
                     echo "<td><a href='edit_mastersupplier.php?namasupplier=" . $row['namasupplier'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
                     echo "<td>
-                    <form method='post' onsubmit='return confirmDelete();'> <!-- Tambahkan onsubmit event -->
+                    <form method='post' onsubmit='return confirmDelete();'> 
                         <input type='hidden' name='delete_namasupplier' value='" . $row['namasupplier'] . "'>
                         <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px; '>
                             <i class='fas fa-trash-alt'></i>

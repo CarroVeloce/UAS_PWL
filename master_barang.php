@@ -224,7 +224,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h2>ADMIN</h2>
-        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="index.php"><i class="fas fa-home"></i> Home</a>
         <a href="master_barang.php" class="active"><i class="fas fa-box"></i> Master Barang</a>
         <a href="master_supplier.php"><i class="fas fa-users"></i> Master Supplier</a>
         <a href="master_distributor.php"><i class="fas fa-store"></i> Master Distributor</a>

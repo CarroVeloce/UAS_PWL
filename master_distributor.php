@@ -187,7 +187,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h2>ADMIN</h2>
-        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="index.php"><i class="fas fa-home"></i> Home</a>
         <a href="master_barang.php"><i class="fas fa-box"></i> Master Barang</a>
         <a href="master_supplier.php"><i class="fas fa-users"></i> Master Supplier</a>
         <a href="master_distributor.php" class="active"><i class="fas fa-store"></i> Master Distributor</a>
@@ -207,6 +207,7 @@
             </form>
             <thead>
                 <tr>
+                    <th>ID TOKO</th>
                     <th>NAMA TOKO</th>
                     <th>ALAMAT</th>
                     <th>TELEPON TOKO</th>
@@ -240,9 +241,9 @@
         
             if (isset($_GET['search']) && !empty($_GET['search'])) {
                 $search = $_GET['search'];
-                $sql = "SELECT namatoko, alamat, notlptoko, jenisbarang, namabarang FROM datadistributor WHERE namatoko LIKE '%$search%'";
+                $sql = "SELECT idtoko, namatoko, alamat, notlptoko, jenisbarang, namabarang FROM datadistributor WHERE namatoko LIKE '%$search%'";
             } else {
-                $sql = "SELECT namatoko, alamat, notlptoko, jenisbarang, namabarang FROM datadistributor";
+                $sql = "SELECT idtoko, namatoko, alamat, notlptoko, jenisbarang, namabarang FROM datadistributor";
             }
         
             $result = mysqli_query($conn, $sql);
@@ -250,12 +251,13 @@
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<tr>";
+                    echo "<td>" . $row['idtoko'] . "</td>";
                     echo "<td>" . $row['namatoko'] . "</td>";
                     echo "<td>" . $row['alamat'] . "</td>";
                     echo "<td>" . $row['notlptoko'] . "</td>";
                     echo "<td>" . $row['jenisbarang'] . "</td>";
                     echo "<td>" . $row['namabarang'] . "</td>";
-                    echo "<td><a href='edit_masterdistributor.php?namatoko=" . $row['namatoko'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
+                    echo "<td><a href='edit_masterdistributor.php?idtoko=" . $row['idtoko'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
                     echo "<td>
                             <form method='post' onsubmit='return confirmDelete();'> <!-- Tambahkan onsubmit event -->
                                 <input type='hidden' name='delete_namatoko' value='" . $row['namatoko'] . "'>
@@ -267,7 +269,7 @@
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='7'>Tidak ada data mahasiswa.</td></tr>";
+                echo "<tr><td colspan='7'>Distributor.</td></tr>";
             }
 
             mysqli_close($conn);

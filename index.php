@@ -1,9 +1,43 @@
+<?php
+$host = "localhost";
+$username = "root";
+$password = "";
+$database = "uas_pwl";
+
+$conn = mysqli_connect($host, $username, $password, $database);
+
+if (!$conn) {
+    die("Koneksi gagal: " . mysqli_connect_error());
+}
+// Ambil data dari database
+$sql = "SELECT namabarang, stok FROM databarang";
+$result = mysqli_query($conn, $sql);
+
+// Persiapkan variabel untuk menyimpan data grafik
+$labels = array();
+$data = array();
+
+// Proses hasil query untuk digunakan dalam grafik
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $labels[] = $row['namabarang']; // Label pada sumbu X (nama barang)
+        $data[] = (int) $row['stok']; // Data (jumlah stok)
+    }
+}
+
+// Konversi data ke dalam format JSON agar bisa digunakan dalam skrip JavaScript
+$labels_json = json_encode($labels);
+$data_json = json_encode($data);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Admin Dashboard</title>
     <style>
         p {
@@ -29,7 +63,7 @@
             background: linear-gradient(to bottom, #007bff, #6f42c1);
             color: #fff;
             padding-top: 20px;
-          
+
         }
 
         .sidebar a {
@@ -39,21 +73,23 @@
             text-decoration: none;
             transition: background 0.3s ease, border-radius 0.3s ease;
         }
-        
-        .sidebar a.active {     
+
+        .sidebar a.active {
             background: linear-gradient(to left, #6f42c1, #6f42c1);
             border-radius: 15px;
             margin-left: 15px;
             margin-right: 15px;
         }
-        
-        
+
+
         .sidebar a:hover {
-            background: rgba(255, 255, 255, 0.5); /* Putih dengan tingkat transparansi 0.5 (50%) */
+            background: rgba(255, 255, 255, 0.5);
+            /* Putih dengan tingkat transparansi 0.5 (50%) */
             border-radius: 15px;
             margin-left: 15px;
             margin-right: 15px;
-            padding: 25px 20px; /* Menambahkan padding yang sama dengan kondisi default */
+            padding: 25px 20px;
+            /* Menambahkan padding yang sama dengan kondisi default */
             color: #333;
         }
 
@@ -66,17 +102,17 @@
 
         .container {
             position: relative;
-            width: 80%;
-            margin-top: 150px;
-            padding-left: 270px;
+            max-width: 900px;
+            max-height: 600px;
+            margin-left: 400px;
             background-color: whitesmoke;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             padding: 20px;
             font-family: Arial, sans-serif;
             color: #333;
-
         }
+
 
         /* Additional styles for table */
         table {
@@ -117,24 +153,56 @@
         h2 {
             text-align: center;
             /* Membuat teks menjadi pusat */
-            margin-top: 100px;
+        
             /* Menambahkan margin di atas */
         }
-        
     </style>
-   
 </head>
+
 <body>
     <div class="sidebar">
-        <h2>ADMIN</h2>  
-        <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+        <h2>ADMIN</h2>
+        <a href="index.php" class="active"><i class="fas fa-home"></i> Home</a>
         <a href="master_barang.php"><i class="fas fa-box"></i> Master Barang</a>
         <a href="master_supplier.php"><i class="fas fa-users"></i> Master Supplier</a>
         <a href="master_distributor.php"><i class="fas fa-store"></i> Master Distributor</a>
         <a href="login.php"><i class="fas fa-sign-in-alt"></i> Login</a>
     </div>
-    
-    
 
+    <!-- Chart Section -->
+    <div class="container">
+        <h2>Statistik Stok Barang</h2>
+        <canvas id="barangChart" width="300" height="150"></canvas>
+    </div>
+
+    <!-- Your other HTML content -->
+    <script>
+        // Mengambil data dari PHP ke dalam JavaScript
+        var labels = <?php echo $labels_json; ?>;
+        var data = <?php echo $data_json; ?>;
+
+        var ctx = document.getElementById('barangChart').getContext('2d');
+        var barangChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Stok',
+                    data: data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 </body>
+
 </html>
