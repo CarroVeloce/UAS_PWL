@@ -19,10 +19,8 @@
             width: 400px;
             padding: 20px;
             border-radius: 15px;
-            /* Lebih rounded */
             background-color: #fff;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            /* Efek 3D */
             animation: fadeIn 0.5s ease forwards;
             text-align: center;
             position: relative;
@@ -35,10 +33,8 @@
             color: #007bff;
             animation: slideDown 0.5s ease forwards;
             font-family: 'Arial', sans-serif;
-            /* Ganti font untuk h2 */
         }
 
-        /* Input yang lebih rounded */
         input[type="text"],
         input[type="date"],
         input[type="number"],
@@ -49,15 +45,11 @@
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 8px;
-            /* Lebih rounded */
             transition: border-color 0.3s ease;
             font-family: 'Arial', sans-serif;
-            /* Ganti font untuk input */
             font-size: 16px;
-            /* Sesuaikan ukuran font */
         }
 
-        /* Efek hover */
         input[type="text"]:hover,
         input[type="date"]:hover,
         input[type="number"]:hover,
@@ -65,7 +57,6 @@
             border-color: #007bff;
         }
 
-        /* Style untuk tombol submit */
         input[type="submit"] {
             padding: 10px;
             background-color: #007bff;
@@ -92,22 +83,17 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(to bottom, #007bff, #6f42c1);
-            /* Gradient warna yang diinginkan */
             z-index: -2;
-            /* Z-index diperkecil agar berada di bawah animasi circle */
             animation: animateBackground 15s linear infinite;
-            /* Animasi berulang */
         }
 
         @keyframes animateBackground {
             from {
                 background-position: 0 0;
-                /* Awal animasi */
             }
 
             to {
                 background-position: 0 100%;
-                /* Akhir animasi */
             }
         }
 
@@ -171,12 +157,10 @@
         @keyframes animateCircles {
             0% {
                 transform: translateY(100vh);
-                /* Muncul dari bawah layar */
             }
 
             100% {
                 transform: translateY(-100vh);
-                /* Menghilang di atas layar */
             }
         }
 
@@ -220,10 +204,8 @@
             font-size: 16px;
         }
 
-        /* Style untuk tanda panah di bagian dropdown */
         .select-wrapper::after {
             content: '\25BC';
-            /* Panah ke bawah dalam Unicode */
             position: absolute;
             top: 50%;
             right: 10px;
@@ -231,7 +213,6 @@
             pointer-events: none;
         }
 
-        /* Efek hover pada dropdown */
         .select-wrapper:hover select {
             border-color: #007bff;
         }
@@ -247,7 +228,6 @@
         <div class="circle"></div>
         <div class="circle"></div>
         <div class="circle"></div>
-        <!-- Tambahkan bentuk lain sesuai kebutuhan -->
     </div>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
         <h2>Form Input Barang</h2>
@@ -319,12 +299,9 @@
 
             if (isset($_FILES["gambar"]) && $_FILES["gambar"]["error"] == 0) {
                 $target_dir = "gambarproduk/"; // Direktori untuk menyimpan file gambar produk
-                $target_file = $target_dir . basename($_FILES["gambar"]["name"]); // Path lengkap file gambar
+                $target_file = $target_dir . basename($_FILES["gambar"]["name"]); 
     
-                // Move file yang diunggah ke lokasi yang diinginkan
                 if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-                    // echo "File " . htmlspecialchars(basename($_FILES["gambar"]["name"])) . "";
-                    // Lakukan query INSERT dengan menambahkan $target_file ke dalam database
                     $sql_gambar = "UPDATE databarang SET gambar='$target_file' WHERE nobarang='$nobarang'";
                     mysqli_query($conn, $sql_gambar);
                 } else {

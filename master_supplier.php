@@ -20,7 +20,6 @@
             color: #333;
         }
 
-        /* New styles for sidebar */
         .sidebar {
             position: fixed;
             top: 0;
@@ -30,7 +29,6 @@
             background: linear-gradient(to bottom, #007bff, #6f42c1);
             color: #fff;
             padding-top: 20px;
-            /* Padding top untuk sidebar */
         }
 
         .sidebar a {
@@ -50,11 +48,11 @@
         
         
         .sidebar a:hover {
-            background: rgba(255, 255, 255, 0.5); /* Putih dengan tingkat transparansi 0.5 (50%) */
+            background: rgba(255, 255, 255, 0.5); 
             border-radius: 15px;
             margin-left: 15px;
             margin-right: 15px;
-            padding: 25px 20px; /* Menambahkan padding yang sama dengan kondisi default */
+            padding: 25px 20px;
             color: #333;
         }
 
@@ -140,7 +138,6 @@
 
         .action-buttons {
             white-space: nowrap;
-            /* Mencegah pemisahan baris */
         }
 
         .button-add,
@@ -183,7 +180,6 @@
     <div class="profile-container">
         <H4>N.CORP</H4>
     </div>
-    <!-- Sidebar -->
     <div class="sidebar">
         <h2>ADMIN</h2>
         <a href="index.php"><i class="fas fa-home"></i> Home</a>
@@ -193,7 +189,6 @@
         <a href="login.php"><i class="fas fa-sign-in-alt"></i> Login</a>
     </div>
 
-    <!-- Main Content -->
     <div class="container" style="margin-left: 250px;">
     <a href="input_mastersupplier.php" class="button-add"><i class="fas fa-plus"></i> Tambah</a>
         <h2>Data Supplier</h2>

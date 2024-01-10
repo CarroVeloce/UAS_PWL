@@ -77,9 +77,7 @@
             margin: 5px 20px;
             text-align: center;
             font-family: 'Arial', sans-serif;
-            /* Ganti font untuk tombol */
             font-size: 16px;
-            /* Sesuaikan ukuran font */
         }
 
         input[type="submit"]:hover {
@@ -93,22 +91,17 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(to bottom, #007bff, #6f42c1);
-            /* Gradient warna yang diinginkan */
             z-index: -2;
-            /* Z-index diperkecil agar berada di bawah animasi circle */
             animation: animateBackground 15s linear infinite;
-            /* Animasi berulang */
         }
 
         @keyframes animateBackground {
             from {
                 background-position: 0 0;
-                /* Awal animasi */
             }
 
             to {
                 background-position: 0 100%;
-                /* Akhir animasi */
             }
         }
 
