@@ -13,15 +13,15 @@ if (!$conn) {
 $sql = "SELECT namabarang, stok FROM databarang";
 $result = mysqli_query($conn, $sql);
 
-// Persiapkan variabel untuk menyimpan data grafik
+//variabel untuk menyimpan data grafik
 $labels = array();
 $data = array();
 
 // Proses hasil query untuk digunakan dalam grafik
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
-        $labels[] = $row['namabarang']; // Label pada sumbu X (nama barang)
-        $data[] = (int) $row['stok']; // Data (jumlah stok)
+        $labels[] = $row['namabarang']; 
+        $data[] = (int) $row['stok']; 
     }
 }
 
@@ -52,8 +52,6 @@ $data_json = json_encode($data);
             font-size: 15px;
             color: #333;
         }
-
-        /* New styles for sidebar */
         .sidebar {
             position: fixed;
             top: 0;
@@ -84,12 +82,10 @@ $data_json = json_encode($data);
 
         .sidebar a:hover {
             background: rgba(255, 255, 255, 0.5);
-            /* Putih dengan tingkat transparansi 0.5 (50%) */
             border-radius: 15px;
             margin-left: 15px;
             margin-right: 15px;
             padding: 25px 20px;
-            /* Menambahkan padding yang sama dengan kondisi default */
             color: #333;
         }
 
@@ -113,8 +109,6 @@ $data_json = json_encode($data);
             color: #333;
         }
 
-
-        /* Additional styles for table */
         table {
             width: 80%;
             margin: 20px auto;
@@ -152,9 +146,6 @@ $data_json = json_encode($data);
 
         h2 {
             text-align: center;
-            /* Membuat teks menjadi pusat */
-        
-            /* Menambahkan margin di atas */
         }
     </style>
 </head>
@@ -169,15 +160,11 @@ $data_json = json_encode($data);
         <a href="login.php"><i class="fas fa-sign-in-alt"></i> Login</a>
     </div>
 
-    <!-- Chart Section -->
     <div class="container">
         <h2>Statistik Stok Barang</h2>
         <canvas id="barangChart" width="300" height="150"></canvas>
     </div>
-
-    <!-- Your other HTML content -->
     <script>
-        // Mengambil data dari PHP ke dalam JavaScript
         var labels = <?php echo $labels_json; ?>;
         var data = <?php echo $data_json; ?>;
 

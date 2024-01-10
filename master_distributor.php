@@ -184,7 +184,6 @@
     <div class="profile-container">
         <H4>N.CORP</H4>
     </div>
-    <!-- Sidebar -->
     <div class="sidebar">
         <h2>ADMIN</h2>
         <a href="index.php"><i class="fas fa-home"></i> Home</a>

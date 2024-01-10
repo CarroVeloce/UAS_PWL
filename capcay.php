@@ -5,7 +5,7 @@ function generateCaptcha() {
     $alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     $pass = array();
 
-    $length = 5; // Panjang CAPTCHA
+    $length = 5; 
     $panjangalpha = strlen($alphabet) - 1;
     for ($i = 0; $i < $length; $i++) {
         $n = rand(0, $panjangalpha);

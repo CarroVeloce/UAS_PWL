@@ -137,23 +137,18 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, #007bff, #6f42c1);
-            /* Gradient warna yang diinginkan */
+            background: linear-gradient(to bottom, #007bff, #6f42c1); 
             z-index: -2;
-            /* Z-index diperkecil agar berada di bawah animasi circle */
             animation: animateBackground 15s linear infinite;
-            /* Animasi berulang */
         }
 
         @keyframes animateBackground {
             from {
                 background-position: 0 0;
-                /* Awal animasi */
             }
 
             to {
                 background-position: 0 100%;
-                /* Akhir animasi */
             }
         }
 
@@ -217,12 +212,10 @@
         @keyframes animateCircles {
             0% {
                 transform: translateY(100vh);
-                /* Muncul dari bawah layar */
             }
 
             100% {
                 transform: translateY(-100vh);
-                /* Menghilang di atas layar */
             }
         }
 
@@ -296,7 +289,6 @@
         <div class="circle"></div>
         <div class="circle"></div>
         <div class="circle"></div>
-        <!-- Tambahkan bentuk lain sesuai kebutuhan -->
     </div>
     <div class="login-container">
         <h2>ADMIN</h2>
