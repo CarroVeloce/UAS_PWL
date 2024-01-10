@@ -268,8 +268,6 @@
                 <option value="Pilihan 3">Pilihan 3</option>
                 <!-- Tambahkan lebih banyak pilihan jika diperlukan -->
             </select>
-            <label for="namasupplier">NAMA SUPPLIER:</label>
-            <input type="text" id="namasupplier" name="namasupplier">
         </div>
 
         <input type="submit" value="Submit">
@@ -296,10 +294,10 @@
         $alamatsupplier = $_POST['alamatsupplier'];
         $tlpsupplier = $_POST['tlpsupplier'];
         $jenisbarang = implode(', ', $_POST['jenisbarang']); // Gabungkan multiple values menjadi string
-        $namasupplier = $_POST['namasupplier'];
+       
 
-        $sql = "INSERT INTO datasuppler (namasupplier, alamatsupplier, tlpsupplier, jenisbarang, namasupplier)
-        VALUES ('$namasupplier', '$alamatsupplier', '$tlpsupplier', '$jenisbarang', '$namasupplier')";
+        $sql = "INSERT INTO datasuppler (namasupplier, alamatsupplier, tlpsupplier, jenisbarang)
+        VALUES ('$namasupplier', '$alamatsupplier', '$tlpsupplier', '$jenisbarang')";
 
         if (mysqli_query($conn, $sql)) {
             echo "";
