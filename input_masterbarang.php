@@ -231,7 +231,7 @@
     </div>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
         <h2>Form Input Barang</h2>
-        
+
         <label for="nobarang">NO BARANG:</label>
         <input type="number" id="nobarang" name="nobarang">
 
@@ -248,8 +248,40 @@
                 <option value="SSD">HDD</option>
             </select>
             <label for="supplier">SUPPLIER:</label>
-            <input type="text" id="supplier" name="supplier">
+            <select name="supplier">
+                <?php
+                $host = "localhost";
+                $username = "root";
+                $password = "";
+                $database = "uas_pwl";
+                // Koneksi ke database
+                $conn = mysqli_connect($host, $username, $password, $database);
 
+                if (!$conn) {
+                    die("Koneksi gagal: " . mysqli_connect_error());
+                }
+
+                // Query untuk mengambil data supplier dari tabel mastersupplier
+                $query_supplier = "SELECT idsupplier, namasupplier FROM datasuppler";
+                $result_supplier = mysqli_query($conn, $query_supplier);
+
+                if (mysqli_num_rows($result_supplier) > 0) {
+                    // Loop untuk menampilkan opsi-opsi supplier dalam dropdown
+                    while ($row = mysqli_fetch_assoc($result_supplier)) {
+                        echo "<option value='" . $row['namasupplier'] . "'";
+                        // Jika id_supplier cocok dengan data yang akan diedit, tambahkan attribute selected
+                        if ($row['idsupplier'] == $row['namasupplier']) {
+                            echo " selected";
+                        }
+                        echo ">" . $row['namasupplier'] . "</option>";
+                    }
+                }
+                
+                // Tutup koneksi ke database
+                mysqli_close($conn);
+                ?>
+            </select>
+            
             <label for="stok">STOK:</label>
             <input type="number" id="stok" name="stok">
 
@@ -261,6 +293,9 @@
 
             <label for="gambar">GAMBAR:</label>
             <input type="file" id="gambar" name="gambar">
+
+
+
         </div>
 
         <input type="submit" value="Submit">
@@ -299,8 +334,8 @@
 
             if (isset($_FILES["gambar"]) && $_FILES["gambar"]["error"] == 0) {
                 $target_dir = "gambarproduk/"; // Direktori untuk menyimpan file gambar produk
-                $target_file = $target_dir . basename($_FILES["gambar"]["name"]); 
-    
+                $target_file = $target_dir . basename($_FILES["gambar"]["name"]);
+
                 if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
                     $sql_gambar = "UPDATE databarang SET gambar='$target_file' WHERE nobarang='$nobarang'";
                     mysqli_query($conn, $sql_gambar);

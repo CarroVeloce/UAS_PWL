@@ -233,10 +233,10 @@
     </div>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
         <h2>Form Input Supplier</h2>
-        <label for="namasupplier">NAMA TOKO:</label>
+        <label for="namasupplier">NAMA SUPPLIER:</label>
         <input type="text" id="namasupplier" name="namasupplier">
 
-        <label for="alamatsupplier">alamatsupplier:</label>
+        <label for="alamatsupplier">ALAMAT SUPPLIER:</label>
         <input type="text" id="alamatsupplier" name="alamatsupplier">
 
         <label for="tlpsupplier">NOMOR TELEPON SUPPLIER:</label>
@@ -245,9 +245,9 @@
         <div class="select-wrapper">
             <label for="jenisbarang">JENIS BARANG:</label>
             <select id="jenisbarang" name="jenisbarang[]" multiple>
-                <option value="Pilihan 1">Pilihan 1</option>
-                <option value="Pilihan 2">Pilihan 2</option>
-                <option value="Pilihan 3">Pilihan 3</option>
+                <option value="CPU">CPU</option>
+                <option value="GPU">GPU</option>
+                <option value="SSD">SSD</option>
             </select>
         </div>
 

@@ -212,9 +212,9 @@
         <div class="square"></div>
         <div class="square"></div>
         <div class="square"></div>
-        
+
     </div>
-    <div class="container" >
+    <div class="container">
         <?php
         if (isset($_GET["nobarang"])) {
             $nobarang = $_GET["nobarang"];
@@ -266,9 +266,9 @@
             mysqli_close($conn);
         }
         ?>
-         
+
         <form method="post">
-        <h2>Form Edit Barang</h2>
+            <h2>Form Edit Barang</h2>
             <label for="new_namabarang">Nama Barang:</label>
             <input type="text" name="new_namabarang" value="<?php echo $row['namabarang']; ?>"><br>
 
@@ -276,7 +276,39 @@
             <input type="text" name="new_jenisbarang" value="<?php echo $row['jenisbarang']; ?>"><br>
 
             <label for="new_supplier">Supplier:</label>
-            <input type="text" name="new_supplier" value="<?php echo $row['supplier']; ?>"><br>
+            <select name="new_supplier">
+                <?php
+                 $host = "localhost";
+                 $username = "root";
+                 $password = "";
+                 $database = "uas_pwl";
+                // Koneksi ke database
+                $conn = mysqli_connect($host, $username, $password, $database);
+
+                if (!$conn) {
+                    die("Koneksi gagal: " . mysqli_connect_error());
+                }
+
+                // Query untuk mengambil data supplier dari tabel mastersupplier
+                $query_supplier = "SELECT idsupplier, namasupplier FROM datasuppler";
+                $result_supplier = mysqli_query($conn, $query_supplier);
+
+                if (mysqli_num_rows($result_supplier) > 0) {
+                    // Loop untuk menampilkan opsi-opsi supplier dalam dropdown
+                    while ($row_supplier = mysqli_fetch_assoc($result_supplier)) {
+                        echo "<option value='" . $row_supplier['namasupplier'] . "'";
+                        // Jika id_supplier cocok dengan data yang akan diedit, tambahkan attribute selected
+                        if ($row_supplier['idsupplier'] == $row['supplier']) {
+                            echo " selected";
+                        }
+                        echo ">" . $row_supplier['namasupplier'] . "</option>";
+                    }
+                }
+
+                // Tutup koneksi ke database
+                mysqli_close($conn);
+                ?>
+            </select>
 
             <label for="new_stok">Stok:</label>
             <input type="number" name="new_stok" value="<?php echo $row['stok']; ?>"><br>
