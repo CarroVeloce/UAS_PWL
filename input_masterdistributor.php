@@ -50,13 +50,14 @@
             font-size: 16px;
         }
 
- 
+
         input[type="text"]:hover,
         input[type="date"]:hover,
         input[type="number"]:hover,
         input[type="file"]:hover {
             border-color: #007bff;
         }
+
         input[type="submit"] {
             padding: 10px;
             background-color: #007bff;
@@ -83,7 +84,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(to bottom, #007bff, #6f42c1);
-            z-index: -2; 
+            z-index: -2;
             animation: animateBackground 15s linear infinite;
         }
 
@@ -243,75 +244,74 @@
         <input type="number" id="notlptoko" name="notlptoko">
 
         <div class="select-wrapper">
-    <label for="jenisbarang">JENIS BARANG:</label>
-    <select id="jenisbarang" name="jenisbarang">
-        <?php
-		  $host = "localhost";
+            <label for="jenisbarang">JENIS BARANG:</label>
+            <select id="jenisbarang" name="jenisbarang">
+                <?php
+                $host = "localhost";
                 $username = "root";
                 $password = "";
                 $database = "uas_pwl";
-        // Koneksi ke database
-        $conn = mysqli_connect($host, $username, $password, $database);
+                // Koneksi ke database
+                $conn = mysqli_connect($host, $username, $password, $database);
 
-        if (!$conn) {
-            die("Koneksi gagal: " . mysqli_connect_error());
-        }
+                if (!$conn) {
+                    die("Koneksi gagal: " . mysqli_connect_error());
+                }
 
-        // Query untuk mengambil data 'JENIS BARANG' dari tabel 'databarang'
-        $query_jenisbarang = "SELECT DISTINCT jenisbarang FROM databarang";
-        $result_jenisbarang = mysqli_query($conn, $query_jenisbarang);
+                // Query untuk mengambil data 'JENIS BARANG' dari tabel 'databarang'
+                $query_jenisbarang = "SELECT DISTINCT jenisbarang FROM databarang";
+                $result_jenisbarang = mysqli_query($conn, $query_jenisbarang);
 
-        if (mysqli_num_rows($result_jenisbarang) > 0) {
-            // Menampilkan pilihan 'JENIS BARANG' dari tabel 'databarang'
-            while ($row_jenisbarang = mysqli_fetch_assoc($result_jenisbarang)) {
-                echo "<option value='" . $row_jenisbarang['jenisbarang'] . "'>" . $row_jenisbarang['jenisbarang'] . "</option>";
-            }
-        }
+                if (mysqli_num_rows($result_jenisbarang) > 0) {
+                    // Menampilkan pilihan 'JENIS BARANG' dari tabel 'databarang'
+                    while ($row_jenisbarang = mysqli_fetch_assoc($result_jenisbarang)) {
+                        echo "<option value='" . $row_jenisbarang['jenisbarang'] . "'>" . $row_jenisbarang['jenisbarang'] . "</option>";
+                    }
+                }
 
-        // Tutup koneksi ke database
-        mysqli_close($conn);
-        ?>
-    </select>
-    <label for="namabarang">NAMA BARANG:</label>
-    <select id="namabarang" name="namabarang">
-        <!-- Opsi NAMA BARANG akan diisi secara dinamis setelah memilih JENIS BARANG -->
-    </select>
-</div>
+                // Tutup koneksi ke database
+                mysqli_close($conn);
+                ?>
+            </select>
+            <label for="namabarang">NAMA BARANG:</label>
+            <select id="namabarang" name="namabarang[]" multiple="multiple">
+                <!-- Opsi NAMA BARANG akan diisi secara dinamis setelah memilih JENIS BARANG -->
+            </select>
+        </div>
 
-<script>
-    document.getElementById('jenisbarang').addEventListener('change', function() {
-        // Mendapatkan nilai JENIS BARANG yang dipilih
-        var selectedJenisBarang = this.value;
+        <script>
+            document.getElementById('jenisbarang').addEventListener('change', function () {
+                // Mendapatkan nilai JENIS BARANG yang dipilih
+                var selectedJenisBarang = this.value;
 
-        // Membuat request ke server dengan AJAX untuk mengambil data NAMA BARANG
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // Menghapus opsi sebelumnya sebelum menambahkan yang baru
-                document.getElementById('namabarang').innerHTML = '';
+                // Membuat request ke server dengan AJAX untuk mengambil data NAMA BARANG
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        // Menghapus opsi sebelumnya sebelum menambahkan yang baru
+                        document.getElementById('namabarang').innerHTML = '';
 
-                // Mendapatkan data NAMA BARANG dari respons server
-                var namaBarang = JSON.parse(this.responseText);
+                        // Mendapatkan data NAMA BARANG dari respons server
+                        var namaBarang = JSON.parse(this.responseText);
 
-                // Menambahkan opsi NAMA BARANG sesuai dengan JENIS BARANG yang dipilih
-                namaBarang.forEach(function(item) {
-                    var option = document.createElement('option');
-                    option.value = item;
-                    option.textContent = item;
-                    document.getElementById('namabarang').appendChild(option);
-                });
-            }
-        };
+                        // Menambahkan opsi NAMA BARANG sesuai dengan JENIS BARANG yang dipilih
+                        namaBarang.forEach(function (item) {
+                            var option = document.createElement('option');
+                            option.value = item;
+                            option.textContent = item;
+                            document.getElementById('namabarang').appendChild(option);
+                        });
+                    }
+                };
 
-        // Mengirim request ke server untuk mendapatkan NAMA BARANG sesuai JENIS BARANG
-        xhr.open('GET', 'get_nama_barang.php?jenisbarang=' + selectedJenisBarang, true);
-        xhr.send();
-    });
-</script>
+                // Mengirim request ke server untuk mendapatkan NAMA BARANG sesuai JENIS BARANG
+                xhr.open('GET', 'get_nama_barang.php?jenisbarang=' + selectedJenisBarang, true);
+                xhr.send();
+            });
+        </script>
         <input type="submit" value="Submit">
         <a href="master_distributor.php"
             style="text-decoration: none; display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: #007bff; color: #fff; border-radius: 3px;">Back</a>
-
     </form>
 
     <?php
@@ -326,13 +326,13 @@
         die("Koneksi gagal: " . mysqli_connect_error());
     }
 
-    // Form handling untuk insert data ke dalam tabel databarang
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $namatoko = $_POST['namatoko'];
         $alamat = $_POST['alamat'];
         $notlptoko = $_POST['notlptoko'];
-        $jenisbarang = implode(', ', $_POST['jenisbarang']); 
-        $namabarang = $_POST['namabarang'];
+        $jenisbarang = $_POST['jenisbarang'];
+        $namabarang = isset($_POST['namabarang']) ? implode(", ", $_POST['namabarang']) : '';
 
         $sql = "INSERT INTO datadistributor (namatoko, alamat, notlptoko, jenisbarang, namabarang)
         VALUES ('$namatoko', '$alamat', '$notlptoko', '$jenisbarang', '$namabarang')";
