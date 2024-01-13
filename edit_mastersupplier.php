@@ -207,6 +207,37 @@
                 transform: scale(1);
             }
         }
+
+        .select-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .select-wrapper select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: calc(100% - 20px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .select-wrapper::after {
+            content: '\25BC';
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .select-wrapper:hover select {
+            border-color: #007bff;
+        }
     </style>
 </head>
 
@@ -219,9 +250,9 @@
         <div class="square"></div>
         <div class="square"></div>
         <div class="square"></div>
-        
+
     </div>
-    <div class="container" >
+    <div class="container">
         <?php
 
         if (isset($_GET["idsupplier"])) {
@@ -251,16 +282,16 @@
                 $new_namasupplier = $_POST['new_namasupplier'];
                 $new_alamatsupplier = $_POST['new_alamatsupplier'];
                 $new_tlpsupplier = $_POST['new_tlpsupplier'];
-                $new_jenisbarang = $_POST['new_jenisbarang'];
-            
+                $new_jenisbarang = implode(', ', $_POST['new_jenisbarang']);
+
                 if (empty($new_namasupplier) || empty($new_jenisbarang) || empty($new_alamatsupplier) || empty($new_tlpsupplier)) {
                     echo "Semua kolom harus diisi. Silakan isi semua data.";
                 } else if (!is_numeric($new_tlpsupplier)) {
                     echo "Harap masukkan angka untuk tlpsupplier dan Harga.";
                 } else {
-            
+
                     $update_sql = "UPDATE datasuppler SET namasupplier = '$new_namasupplier', alamatsupplier = '$new_alamatsupplier', tlpsupplier = '$new_tlpsupplier', jenisbarang ='$new_jenisbarang' WHERE idsupplier = $idsupplier";
-            
+
                     if (mysqli_query($conn, $update_sql)) {
                         echo "Data barang berhasil diperbarui. <a href='master_supplier.php'> Kembali</a>";
                         exit;
@@ -269,13 +300,13 @@
                     }
                 }
             }
-            
+
             mysqli_close($conn);
         }
         ?>
-         
+
         <form method="post">
-        <h2>Form Edit Barang</h2>
+            <h2>Form Edit Barang</h2>
             <label for="new_namasupplier">Nama Barang:</label>
             <input type="text" name="new_namasupplier" value="<?php echo $row['namasupplier']; ?>"><br>
 
@@ -285,8 +316,32 @@
             <label for="new_tlpsupplier">tlpsupplier:</label>
             <input type="number" name="new_tlpsupplier" value="<?php echo $row['tlpsupplier']; ?>"><br>
 
-            <label for="new_jenisbarang">Jenis Barang:</label>
-            <input type="text" name="new_jenisbarang" value="<?php echo $row['jenisbarang']; ?>"><br>
+            <div class="select-wrapper">
+                <label for="new_jenisbarang">Jenis Barang:</label>
+                <?php
+                $selectedValues = explode(',', $row['jenisbarang']);
+                ?>
+                <select id="new_jenisbarang" name="new_jenisbarang[]" multiple>
+                    <option value="CPU" <?php if (in_array('CPU', $selectedValues))
+                        echo 'selected'; ?>>CPU</option>
+
+                    <option value="GPU" <?php if (in_array('GPU', $selectedValues))
+                        echo 'selected'; ?>>GPU</option>
+
+                    <option value="RAM" <?php if (in_array('RAM', $selectedValues))
+                        echo 'selected'; ?>>RAM</option>
+
+                    <option value="SSD" <?php if (in_array('SSD', $selectedValues))
+                        echo 'selected'; ?>>SSD</option>
+
+                    <option value="HDD" <?php if (in_array('HDD', $selectedValues))
+                        echo 'selected'; ?>>HDD</option>
+
+                    <option value="MOBO" <?php if (in_array('MOBO', $selectedValues))
+                        echo 'selected'; ?>>MOBO</option>
+
+                </select>
+            </div>
 
             <input type="submit" value="Simpan Perubahan">
         </form>

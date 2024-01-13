@@ -200,6 +200,35 @@
                 transform: scale(1);
             }
         }
+
+        .select-wrapper {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .select-wrapper label,
+        .select-wrapper select {
+            border-radius: 5px;
+            width: 95%;
+            margin: 5px 20px;
+            text-align: left;
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+        }
+
+        .select-wrapper::after {
+            content: '\25BC';
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .select-wrapper:hover select {
+            border-color: #007bff;
+        }
     </style>
 </head>
 
@@ -274,7 +303,7 @@
 
             <label for="new_jenisbarang">Jenis Barang:</label>
             <input type="text" name="new_jenisbarang" value="<?php echo $row['jenisbarang']; ?>"><br>
-
+            <div class="select-wrapper">
             <label for="new_supplier">Supplier:</label>
             <select name="new_supplier">
                 <?php
@@ -309,6 +338,7 @@
                 mysqli_close($conn);
                 ?>
             </select>
+            </div>
 
             <label for="new_stok">Stok:</label>
             <input type="number" name="new_stok" value="<?php echo $row['stok']; ?>"><br>

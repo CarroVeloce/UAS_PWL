@@ -247,7 +247,10 @@
             <select id="jenisbarang" name="jenisbarang[]" multiple>
                 <option value="CPU">CPU</option>
                 <option value="GPU">GPU</option>
+                <option value="RAM">RAM</option>
                 <option value="SSD">SSD</option>
+                <option value="SSD">HDD</option>
+                <option value="SSD">MOBO</option>
             </select>
         </div>
 
@@ -274,8 +277,8 @@
         $namasupplier = $_POST['namasupplier'];
         $alamatsupplier = $_POST['alamatsupplier'];
         $tlpsupplier = $_POST['tlpsupplier'];
-        $jenisbarang = implode(', ', $_POST['jenisbarang']); 
-       
+        $jenisbarang = implode(', ', $_POST['jenisbarang']);
+
 
         $sql = "INSERT INTO datasuppler (namasupplier, alamatsupplier, tlpsupplier, jenisbarang)
         VALUES ('$namasupplier', '$alamatsupplier', '$tlpsupplier', '$jenisbarang')";

@@ -58,20 +58,20 @@
             transition: background 0.3s ease, border-radius 0.3s ease, padding 0.3s ease;
         }
 
-        .sidebar a.active {     
+        .sidebar a.active {
             background: linear-gradient(to left, #6f42c1, #6f42c1);
             border-radius: 15px;
             margin-left: 15px;
             margin-right: 15px;
         }
-        
-        
+
+
         .sidebar a:hover {
-            background: rgba(255, 255, 255, 0.5); 
+            background: rgba(255, 255, 255, 0.5);
             border-radius: 15px;
             margin-left: 15px;
             margin-right: 15px;
-            padding: 25px 20px; 
+            padding: 25px 20px;
             color: #333;
         }
 
@@ -173,7 +173,7 @@
             text-decoration: none;
             border-radius: 4px;
             transition: background-color 0.3s ease;
-        
+
         }
 
         .button-add {
@@ -266,25 +266,31 @@
 
             $kurs_usd_to_idr = 15050;
 
+            // Pagination
+            $itemsPerPage = 5; // Jumlah item per halaman
+            $page = isset($_GET['page']) ? $_GET['page'] : 1; // Halaman saat ini, defaultnya 1
+            $offset = ($page - 1) * $itemsPerPage; // Offset data
+            
             if (isset($_POST['delete_nobarang'])) {
                 $delete_nobarang = mysqli_real_escape_string($conn, $_POST['delete_nobarang']);
-                $sql = "DELETE FROM databarang WHERE nobarang = '$delete_nobarang'";
+                $sqlDelete = "DELETE FROM databarang WHERE nobarang = '$delete_nobarang'";
 
-                if (mysqli_query($conn, $sql)) {
+                if (mysqli_query($conn, $sqlDelete)) {
                     echo "";
                 } else {
-                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                    echo "Error: " . $sqlDelete . "<br>" . mysqli_error($conn);
                 }
             }
 
             if (isset($_GET['search']) && !empty($_GET['search'])) {
                 $search = $_GET['search'];
-                $sql = "SELECT nobarang, namabarang, jenisbarang, supplier, stok, harga, tanggalmasuk, gambar FROM databarang WHERE nobarang LIKE '%$search%' OR namabarang LIKE '%$search%' OR jenisbarang LIKE '%$search%'";
+                $sql = "SELECT nobarang, namabarang, jenisbarang, supplier, stok, harga, tanggalmasuk, gambar FROM databarang WHERE nobarang LIKE '%$search%' OR namabarang LIKE '%$search%' OR jenisbarang LIKE '%$search%' ORDER BY tanggalmasuk DESC LIMIT $itemsPerPage OFFSET $offset";
             } else {
-                $sql = "SELECT nobarang, namabarang, jenisbarang, supplier, stok, harga, tanggalmasuk, gambar FROM databarang";
+                $sql = "SELECT nobarang, namabarang, jenisbarang, supplier, stok, harga, tanggalmasuk, gambar FROM databarang ORDER BY tanggalmasuk DESC LIMIT $itemsPerPage OFFSET $offset";
             }
 
             $result = mysqli_query($conn, $sql);
+
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<tr>";
@@ -311,6 +317,24 @@
                 echo "<tr><td colspan='9'>Tidak ada data barang.</td></tr>";
             }
 
+            // Pagination links
+            $sqlTotalItems = "SELECT COUNT(*) FROM databarang";
+            $resultTotalItems = mysqli_query($conn, $sqlTotalItems);
+            $totalItems = mysqli_fetch_row($resultTotalItems)[0];
+            $totalPages = ceil($totalItems / $itemsPerPage);
+
+            echo "<div style='margin-top: 20px;'>";
+            echo "<span>Halaman $page dari $totalPages</span>";
+
+            for ($i = 1; $i <= $totalPages; $i++) {
+                if ($i == $page) {
+                    echo "<span style='padding: 5px; background-color: #007bff; color: #fff; border-radius: 5px; margin-left: 5px;'>$i</span>";
+                } else {
+                    echo "<a href='master_barang.php?page=$i' style='padding: 5px; background-color: #ddd; color: #333; border-radius: 5px; margin-left: 5px;'>$i</a>";
+                }
+            }
+
+            echo "</div>";
 
             mysqli_close($conn);
             ?>

@@ -206,7 +206,7 @@
             </form>
             <thead>
                 <tr>
-                    <th>ID TOKO</th>
+                    <!-- <th>ID TOKO</th> -->
                     <th>NAMA TOKO</th>
                     <th>ALAMAT</th>
                     <th>TELEPON TOKO</th>
@@ -250,7 +250,7 @@
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<tr>";
-                    echo "<td>" . $row['idtoko'] . "</td>";
+                    // echo "<td>" . $row['idtoko'] . "</td>";
                     echo "<td>" . $row['namatoko'] . "</td>";
                     echo "<td>" . $row['alamat'] . "</td>";
                     echo "<td>" . $row['notlptoko'] . "</td>";

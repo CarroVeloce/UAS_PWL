@@ -214,7 +214,11 @@
             if (!$conn) {
                 die("Koneksi gagal: " . mysqli_connect_error());
             }
-            
+
+            $itemsPerPage = 5; // Jumlah item per halaman
+            $page = isset($_GET['page']) ? $_GET['page'] : 1; // Halaman saat ini, defaultnya 1
+            $offset = ($page - 1) * $itemsPerPage; // Offset data
+
             if (isset($_POST['delete_idsupplier'])) {
                 $delete_idsupplier = mysqli_real_escape_string($conn, $_POST['delete_idsupplier']);
                 $sql = "DELETE FROM datasuppler WHERE idsupplier = '$delete_idsupplier'";
@@ -255,6 +259,25 @@
             } else {
                 echo "<tr><td colspan='7'>Tidak ada data supplier.</td></tr>";
             }
+
+             // Pagination links
+             $sqlTotalItems = "SELECT COUNT(*) FROM datasuppler";
+             $resultTotalItems = mysqli_query($conn, $sqlTotalItems);
+             $totalItems = mysqli_fetch_row($resultTotalItems)[0];
+             $totalPages = ceil($totalItems / $itemsPerPage);
+ 
+             echo "<div style='margin-top: 20px;'>";
+             echo "<span>Halaman $page dari $totalPages</span>";
+ 
+             for ($i = 1; $i <= $totalPages; $i++) {
+                 if ($i == $page) {
+                     echo "<span style='padding: 5px; background-color: #007bff; color: #fff; border-radius: 5px; margin-left: 5px;'>$i</span>";
+                 } else {
+                     echo "<a href='master_supplier.php?page=$i' style='padding: 5px; background-color: #ddd; color: #333; border-radius: 5px; margin-left: 5px;'>$i</a>";
+                 }
+             }
+ 
+             echo "</div>";
 
             mysqli_close($conn);
             ?>

@@ -43,7 +43,7 @@ $data_json = json_encode($data);
         p {
             font-size: 16px;
         }
-
+        
         table,
         th,
         td,
