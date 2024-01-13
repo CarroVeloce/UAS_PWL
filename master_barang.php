@@ -192,13 +192,13 @@
             align-items: center;
         }
 
-        .button-add2 {
+        .button-Backup {
             display: inline-block;
             text-align: center;
             text-decoration: none;
             border-radius: 4px;
             position: absolute;
-            top: 56px;
+            top: 58px;
             right: 0;
             background-color: #007bff;
             color: #fff;
@@ -239,16 +239,16 @@
         }
     </script>
     <script>
-    function printTable() {
-        var printContents = document.querySelector('.container table').outerHTML;
-        var originalContents = document.body.innerHTML;
+        function printTable() {
+            var printContents = document.querySelector('.container table').outerHTML;
+            var originalContents = document.body.innerHTML;
 
-        document.body.innerHTML = printContents;
-        window.print();
+            document.body.innerHTML = printContents;
+            window.print();
 
-        document.body.innerHTML = originalContents;
-    }
-</script>
+            document.body.innerHTML = originalContents;
+        }
+    </script>
 </head>
 
 
@@ -273,7 +273,7 @@
             <i class="fas fa-print"></i> Print
         </button>
         <a href="input_masterbarang.php" class="button-add"><i class="fas fa-plus"></i> Tambah</a>
-        <a href="backupmaster_barang.php" class="button-add2"><i class="fas fa-plus"></i> BACKUP</a>
+        <a href="backupmaster_barang.php" class="button-Backup"><i class="fas fa-database"></i> Backup</a>
         <table>
             <form method="GET" action="" style="margin-bottom: 20px;">
                 <input type="text" name="search" placeholder="Cari berdasarkan No. Barang atau Nama Barang"

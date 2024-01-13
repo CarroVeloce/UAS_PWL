@@ -1,1 +1,30 @@
-[]
+[
+    {
+        "idsupplier": "2",
+        "namasupplier": "Advanced Micro Devices, Inc. ",
+        "alamatsupplier": "Santa Clara, California, United States",
+        "tlpsupplier": "3889",
+        "jenisbarang": "CPU, GPU, RAM, SSD, HDD, MOBO"
+    },
+    {
+        "idsupplier": "3",
+        "namasupplier": "Nvidia Corporation",
+        "alamatsupplier": "Santa Clara, California, U.S.",
+        "tlpsupplier": "44566",
+        "jenisbarang": "CPU, GPU, RAM, SSD, HDD, MOBO"
+    },
+    {
+        "idsupplier": "4",
+        "namasupplier": "Intel Corporation",
+        "alamatsupplier": "Santa Clara, California, U.S.",
+        "tlpsupplier": "7888",
+        "jenisbarang": "CPU, GPU, RAM, SSD, HDD, MOBO"
+    },
+    {
+        "idsupplier": "5",
+        "namasupplier": "ASUSTeK Computer Inc.",
+        "alamatsupplier": "Beitou District, Taipei, Taiwan",
+        "tlpsupplier": "88890",
+        "jenisbarang": "CPU, GPU, RAM, SSD, HDD, MOBO"
+    }
+]

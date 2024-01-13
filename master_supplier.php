@@ -151,23 +151,28 @@
         }
 
         .button-add {
-            position: absolute;
-            top: 115px;
-            right: 0;
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 10px;
-            border-radius: 5px;
-            align-items: center;
-        }
-
-        .button-add2 {
             display: inline-block;
             text-align: center;
             text-decoration: none;
             border-radius: 4px;
             position: absolute;
-            top: 56px;
+            top: 58px;
+            right: 0;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 10px;
+            margin-right: 20px;
+            margin-top: 60px;
+            align-items: center;
+        }
+
+        .button-Backup {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            position: absolute;
+            top: 58px;
             right: 0;
             background-color: #007bff;
             color: #fff;
@@ -180,6 +185,7 @@
         .button-add i {
             margin-right: 5px;
         }
+
 
         .button-edit {
             background-color: #007bff;
@@ -234,7 +240,7 @@
 
     <div class="container" style="margin-left: 250px;">
     <a href="input_mastersupplier.php" class="button-add"><i class="fas fa-plus"></i> Tambah</a>
-    <a href="backupmaster_supplier.php" class="button-add2"><i class="fas fa-plus"></i> BACKUP</a>
+    <a href="backupmaster_supplier.php" class="button-Backup"><i class="fas fa-database"></i> Backup</a>
         <h2>Data Supplier</h2>
         <button onclick="printTable()"
             style="margin: 10px; padding: 10px 15px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
