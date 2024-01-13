@@ -182,7 +182,7 @@
             text-decoration: none;
             border-radius: 4px;
             position: absolute;
-            top: 56px;
+            top: 58px;
             right: 0;
             background-color: #007bff;
             color: #fff;

@@ -109,6 +109,7 @@ $data_json = json_encode($data);
             font-family: Arial, sans-serif;
             color: #333;
         }
+        
 
         table {
             width: 80%;

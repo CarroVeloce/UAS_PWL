@@ -152,7 +152,7 @@
 
         .button-add {
             position: absolute;
-            top: 110px;
+            top: 115px;
             right: 0;
             background-color: #007bff;
             color: #fff;
