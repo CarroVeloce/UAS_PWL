@@ -182,7 +182,7 @@
             text-decoration: none;
             border-radius: 4px;
             position: absolute;
-            top: 42px;
+            top: 56px;
             right: 0;
             background-color: #007bff;
             color: #fff;
@@ -206,13 +206,35 @@
             background-color: darken(#007bff, 10%);
         }
     </style>
-</head>
-<script>
-    function confirmDelete() {
-        return confirm('Apakah Anda yakin ingin menghapus data ini?');
-    }
+    <script>
+        function printTable() {
+            var printContents = document.querySelector('.container table').outerHTML;
+            var originalContents = document.body.innerHTML;
 
+            document.body.innerHTML = '<table>' + printContents + '</table>';
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+    <script>
+        function printPage() {
+            window.print();
+        }
+    </script>
+    <script>
+    function printTable() {
+        var printContents = document.querySelector('.container table').outerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
 </script>
+</head>
+
 
 <body>
     <div class="profile-container">
@@ -229,8 +251,12 @@
 
 
     <div class="container" style="margin-left: 250px;">
-        <a href="input_masterbarang.php" class="button-add"><i class="fas fa-plus"></i> Tambah</a>
         <h2>Daftar Barang</h2>
+        <button onclick="printTable()"
+            style="margin: 10px; padding: 10px 15px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+            <i class="fas fa-print"></i> Print
+        </button>
+        <a href="input_masterbarang.php" class="button-add"><i class="fas fa-plus"></i> Tambah</a>
         <table>
             <form method="GET" action="" style="margin-bottom: 20px;">
                 <input type="text" name="search" placeholder="Cari berdasarkan No. Barang atau Nama Barang"

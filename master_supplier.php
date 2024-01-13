@@ -152,7 +152,7 @@
 
         .button-add {
             position: absolute;
-            top: 42px;
+            top: 110px;
             right: 0;
             background-color: #007bff;
             color: #fff;
@@ -174,6 +174,33 @@
             background-color: darken(#007bff, 10%);
         }
     </style>
+     <script>
+        function printTable() {
+            var printContents = document.querySelector('.container table').outerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = '<table>' + printContents + '</table>';
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+    <script>
+        function printPage() {
+            window.print();
+        }
+    </script>
+    <script>
+    function printTable() {
+        var printContents = document.querySelector('.container table').outerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+</script>
 </head>
 
 <body>
@@ -192,7 +219,18 @@
     <div class="container" style="margin-left: 250px;">
     <a href="input_mastersupplier.php" class="button-add"><i class="fas fa-plus"></i> Tambah</a>
         <h2>Data Supplier</h2>
+        <button onclick="printTable()"
+            style="margin: 10px; padding: 10px 15px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+            <i class="fas fa-print"></i> Print
+        </button>
         <table>
+        <form method="GET" action="" style="margin-bottom: 20px;">
+                <input type="text" name="search" placeholder="Cari berdasarkan Nama Supplier"
+                    style="padding: 8px;">
+                <button type="submit"
+                    style="padding: 10px 12px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; margin-left: 5px; margin-bottom: 20px; "><i
+                        class="fas fa-search"></i> Cari</button>
+            </form>
             <thead>
                 <tr>
                     <th>NAMA</th>
@@ -215,7 +253,7 @@
                 die("Koneksi gagal: " . mysqli_connect_error());
             }
 
-            $itemsPerPage = 5; // Jumlah item per halaman
+            $itemsPerPage = 2; // Jumlah item per halaman
             $page = isset($_GET['page']) ? $_GET['page'] : 1; // Halaman saat ini, defaultnya 1
             $offset = ($page - 1) * $itemsPerPage; // Offset data
 

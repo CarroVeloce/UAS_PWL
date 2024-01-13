@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Admin Dashboard</title>
-    <style>
+     <style>
         p {
             font-size: 16px;
         }
@@ -178,6 +178,33 @@
             background-color: darken(#007bff, 10%);
         }
     </style>
+     <script>
+        function printTable() {
+            var printContents = document.querySelector('.container table').outerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = '<table>' + printContents + '</table>';
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+    <script>
+        function printPage() {
+            window.print();
+        }
+    </script>
+    <script>
+    function printTable() {
+        var printContents = document.querySelector('.container table').outerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+</script>
 </head>
 
 <body>
@@ -196,10 +223,13 @@
     <div class="container" style="margin-left: 250px;">
         <a href="input_masterdistributor.php" class="button-add"><i class="fas fa-plus"></i> Tambah</a>
         <h2>Daftar Distributor</h2>
+        <button onclick="printTable()"
+            style="margin: 10px; padding: 10px 15px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+            <i class="fas fa-print"></i> Print
+        </button>
         <table>
             <form method="GET" action="" style="margin-bottom: 20px;">
-                <input type="text" name="search" placeholder="Cari berdasarkan Nama Toko"
-                    style="padding: 8px;">
+                <input type="text" name="search" placeholder="Cari berdasarkan Nama Toko" style="padding: 8px;">
                 <button type="submit"
                     style="padding: 10px 12px; background-color: #007bff; color: #fff; border: none; border-radius: 4px; margin-left: 5px; margin-bottom: 20px; "><i
                         class="fas fa-search"></i> Cari</button>
@@ -215,7 +245,6 @@
                 </tr>
             </thead>
 
-
             <?php
             $host = "localhost";
             $username = "root";
@@ -227,6 +256,7 @@
             if (!$conn) {
                 die("Koneksi gagal: " . mysqli_connect_error());
             }
+
             if (isset($_POST['delete_namatoko'])) {
                 $delete_namatoko = mysqli_real_escape_string($conn, $_POST['delete_namatoko']);
                 $sql = "DELETE FROM datadistributor WHERE namatoko = '$delete_namatoko'";
@@ -237,14 +267,24 @@
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
                 }
             }
-        
+
+            // Pagination
+            $itemsPerPage = 5; // Adjust this value as needed
+            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $offset = ($page - 1) * $itemsPerPage;
+
             if (isset($_GET['search']) && !empty($_GET['search'])) {
                 $search = $_GET['search'];
-                $sql = "SELECT idtoko, namatoko, alamat, notlptoko, jenisbarang, namabarang FROM datadistributor WHERE namatoko LIKE '%$search%'";
+                $sql = "SELECT idtoko, namatoko, alamat, notlptoko, jenisbarang, namabarang 
+                        FROM datadistributor 
+                        WHERE namatoko LIKE '%$search%'
+                        LIMIT $itemsPerPage OFFSET $offset";
             } else {
-                $sql = "SELECT idtoko, namatoko, alamat, notlptoko, jenisbarang, namabarang FROM datadistributor";
+                $sql = "SELECT idtoko, namatoko, alamat, notlptoko, jenisbarang, namabarang 
+                        FROM datadistributor 
+                        LIMIT $itemsPerPage OFFSET $offset";
             }
-        
+
             $result = mysqli_query($conn, $sql);
 
             if (mysqli_num_rows($result) > 0) {
@@ -258,18 +298,37 @@
                     echo "<td>" . $row['namabarang'] . "</td>";
                     echo "<td><a href='edit_masterdistributor.php?idtoko=" . $row['idtoko'] . "' class='button-edit'><i class='fas fa-edit'></i></a>";
                     echo "<td>
-                            <form method='post' onsubmit='return confirmDelete();'> <!-- Tambahkan onsubmit event -->
+                            <form method='post' onsubmit='return confirmDelete();'>
                                 <input type='hidden' name='delete_namatoko' value='" . $row['namatoko'] . "'>
-                                 <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px;'>
-                                 <i class='fas fa-trash-alt'></i>
-                                    </button>
-                                        </form>
-                                </td>";
+                                <button type='submit' style='background-color: #dc3545; color: #fff; border: none; padding: 10px 10px; border-radius: 4px;'>
+                                    <i class='fas fa-trash-alt'></i>
+                                </button>
+                            </form>
+                        </td>";
                     echo "</tr>";
                 }
             } else {
                 echo "<tr><td colspan='7'>Distributor.</td></tr>";
             }
+
+            // Pagination links
+            $sqlTotalItems = "SELECT COUNT(*) FROM datadistributor";
+            $resultTotalItems = mysqli_query($conn, $sqlTotalItems);
+            $totalItems = mysqli_fetch_row($resultTotalItems)[0];
+            $totalPages = ceil($totalItems / $itemsPerPage);
+
+            echo "<div style='margin-top: 20px;'>";
+            echo "<span>Halaman $page dari $totalPages</span>";
+
+            for ($i = 1; $i <= $totalPages; $i++) {
+                if ($i == $page) {
+                    echo "<span style='padding: 5px; background-color: #007bff; color: #fff; border-radius: 5px; margin-left: 5px;'>$i</span>";
+                } else {
+                    echo "<a href='master_distributor.php?page=$i' style='padding: 5px; background-color: #ddd; color: #333; border-radius: 5px; margin-left: 5px;'>$i</a>";
+                }
+            }
+
+            echo "</div>";
 
             mysqli_close($conn);
             ?>

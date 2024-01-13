@@ -20,8 +20,8 @@ $data = array();
 // Proses hasil query untuk digunakan dalam grafik
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
-        $labels[] = $row['namabarang']; 
-        $data[] = (int) $row['stok']; 
+        $labels[] = $row['namabarang'];
+        $data[] = (int) $row['stok'];
     }
 }
 
@@ -43,7 +43,7 @@ $data_json = json_encode($data);
         p {
             font-size: 16px;
         }
-        
+
         table,
         th,
         td,
@@ -52,6 +52,7 @@ $data_json = json_encode($data);
             font-size: 15px;
             color: #333;
         }
+
         .sidebar {
             position: fixed;
             top: 0;
