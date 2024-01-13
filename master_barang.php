@@ -192,6 +192,22 @@
             align-items: center;
         }
 
+        .button-add2 {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            position: absolute;
+            top: 56px;
+            right: 0;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 10px;
+            margin-right: 125px;
+            margin-top: 60px;
+            align-items: center;
+        }
+
         .button-add i {
             margin-right: 5px;
         }
@@ -257,6 +273,7 @@
             <i class="fas fa-print"></i> Print
         </button>
         <a href="input_masterbarang.php" class="button-add"><i class="fas fa-plus"></i> Tambah</a>
+        <a href="backupmaster_barang.php" class="button-add2"><i class="fas fa-plus"></i> BACKUP</a>
         <table>
             <form method="GET" action="" style="margin-bottom: 20px;">
                 <input type="text" name="search" placeholder="Cari berdasarkan No. Barang atau Nama Barang"
