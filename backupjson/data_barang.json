@@ -1,22 +1,32 @@
 [
     {
-        "nobarang": "33445",
-        "namabarang": "Ryzen 5 8600G",
+        "nobarang": "345568",
+        "namabarang": "RTX 4090",
+        "jenisbarang": "GPU",
+        "supplier": "Nvidia Corporation.",
+        "stok": "90",
+        "harga": "1200",
+        "tanggalmasuk": "2024-01-26",
+        "gambar": "gambarproduk\/GeForce-ADA-RTX4080-Back-Custom.jpg_videocardz.jpg"
+    },
+    {
+        "nobarang": "345598",
+        "namabarang": "Ryzen 9 7950x3d",
         "jenisbarang": "CPU",
-        "supplier": "Advanced Micro Devices, Inc. ",
-        "stok": "23",
-        "harga": "250",
-        "tanggalmasuk": "2024-01-12",
+        "supplier": "Advanced Micro Devices, Inc.",
+        "stok": "46",
+        "harga": "999",
+        "tanggalmasuk": "2024-01-05",
         "gambar": "gambarproduk\/24202242-6b03f190af726e006a5b82b.jpg"
     },
     {
-        "nobarang": "667788",
-        "namabarang": "RTX 4090",
+        "nobarang": "4564564",
+        "namabarang": "RX 7800XTX",
         "jenisbarang": "GPU",
-        "supplier": "Advanced Micro Devices, Inc. ",
-        "stok": "45",
-        "harga": "1200",
-        "tanggalmasuk": "2024-01-13",
-        "gambar": "gambarproduk\/GeForce-ADA-RTX4080-Back-Custom.jpg_videocardz.jpg"
+        "supplier": "AMD",
+        "stok": "34",
+        "harga": "788",
+        "tanggalmasuk": "2024-01-18",
+        "gambar": "gambarproduk\/GarageImage_IS-2_(1944).jpg"
     }
 ]
