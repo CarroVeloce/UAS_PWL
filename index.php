@@ -17,6 +17,7 @@ $result = mysqli_query($conn, $sql);
 $labels = array();
 $data = array();
 
+
 // Proses hasil query untuk digunakan dalam grafik
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
@@ -149,6 +150,23 @@ $data_json = json_encode($data);
         h2 {
             text-align: center;
         }
+
+        .user-box {
+            width: 250px;
+            height: 100px;
+            padding-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            font-size: 14px;
+            margin-left:auto;
+            border-radius: 10px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .box-box{
+            display: flex;
+        }
     </style>
 </head>
 
@@ -161,11 +179,34 @@ $data_json = json_encode($data);
         <a href="master_distributor.php"><i class="fas fa-store"></i> Master Distributor</a>
         <a href="login.php"><i class="fas fa-sign-in-alt"></i> Login</a>
     </div>
-
+    <?php
+        // Ambil data jumlah user dari database
+        $sqlUser = "SELECT COUNT(*) as totalUsers FROM user";
+        $resultUser = mysqli_query($conn, $sqlUser);
+        $rowUser = mysqli_fetch_assoc($resultUser);
+        $totalUsers = $rowUser['totalUsers'];
+        
+        // Ambil data jumlah stok barang dari database
+        $totalStokQuery = mysqli_query($conn, "SELECT SUM(stok) as total_stok FROM databarang");
+        $totalStok = mysqli_fetch_assoc($totalStokQuery)['total_stok'];
+        ?>
+    <div class="box-box">
+        <div class="user-box">
+            <i class="fas fa-user-circle fa-3x"></i> 
+            <h2>Jumlah Pegawai: <?php echo $totalUsers; ?></h2>
+        </div>
+        
+        <div class="user-box">
+            <i class="fas fa-user-circle fa-3x"></i> 
+            <h2>Jumlah Barang: <?php echo $totalStok; ?></h2>
+        </div>
+    </div>    
     <div class="container">
         <h2>Statistik Stok Barang</h2>
         <canvas id="barangChart" width="300" height="150"></canvas>
+        
     </div>
+    
     <script>
         var labels = <?php echo $labels_json; ?>;
         var data = <?php echo $data_json; ?>;
