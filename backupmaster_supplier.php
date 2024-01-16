@@ -1,101 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Export</title>
+    <title>Data Display</title>
     <style>
-        body {
+        .butun {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f8ff; /* Ganti warna latar belakang sesuai keinginan */
-        }
-
-        .message-box {
-            position: relative;
-            padding: 20px;
-            border: 2px solid #008000; /* Warna hijau */
-            border-radius: 10px;
-            background-color: #d0f0c0; /* Warna latar belakang hijau muda */
             text-align: center;
+            justify-content: space-between;
         }
 
-        .close-button {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            cursor: pointer;
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            background-color: #007bff;
+            text-decoration: none;
+            width: 50px;
+            height: 25px;
+            border-radius: 5px;
         }
     </style>
 </head>
+
 <body>
+    <div class="butun">
+        <button onclick="exportData()">Export data</button>
+        <a href="master_supplier.php">Exit</a>
+    </div>
+    <?php
+    $folder_path = 'backupjson/';
+    $file_name = $folder_path . 'data_supplier.json';
 
-<?php
-$host = "localhost";
-$username = "root";
-$password = "";
-$database = "uas_pwl";
+    if (file_exists($file_name)) {
+        $json_data = file_get_contents($file_name);
+        $data = json_decode($json_data, true);
 
-// Buat koneksi
-$conn = mysqli_connect($host, $username, $password, $database);
-
-// Periksa koneksi
-if (!$conn) {
-    die("Koneksi gagal: " . mysqli_connect_error());
-}
-
-// Ambil data dari tabel
-$sql = "SELECT * FROM datasuppler";
-$result = mysqli_query($conn, $sql);
-
-$data = array();
-
-if ($result->num_rows > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $record = array(
-            "idsupplier" => $row['idsupplier'],
-            "namasupplier" => $row['namasupplier'],
-            "alamatsupplier" => $row['alamatsupplier'],
-            "tlpsupplier" => $row['tlpsupplier'],
-            "jenisbarang" => $row['jenisbarang']
-        );
-        $data[] = $record;
+        if ($data !== null) {
+            echo '<table>';
+            echo '<tr>
+                <th>ID Supplier</th>
+                <th>Nama Supplier</th>
+                <th>Alamat Supplier</th>
+                <th>Telepon Supplier</th>
+                <th>Jenis Barang</th>
+              </tr>';
+            foreach ($data as $row) {
+                echo '<tr>';
+                echo '<td>' . $row['idsupplier'] . '</td>';
+                echo '<td>' . $row['namasupplier'] . '</td>';
+                echo '<td>' . $row['alamatsupplier'] . '</td>';
+                echo '<td>' . $row['tlpsupplier'] . '</td>';
+                echo '<td>' . $row['jenisbarang'] . '</td>';
+                echo '</tr>';
+            }
+            echo '</table>';
+        }
     }
-}
+    ?>
 
-// Konversi data ke format JSON
-$json_data = json_encode($data, JSON_PRETTY_PRINT);
+    <script>
+        function exportData() {
+            <?php
+            $host = "localhost";
+            $username = "root";
+            $password = "";
+            $database = "uas_pwl";
 
-// Tentukan nama file JSON dan path folder
-$folder_path = 'backupjson/';
-$file_name = $folder_path . 'data_supplier.json';
+            // Buat koneksi
+            $conn = mysqli_connect($host, $username, $password, $database);
 
-// Pastikan folder sudah ada atau buat folder jika belum ada
-if (!is_dir($folder_path)) {
-    mkdir($folder_path, 0777, true);
-}
+            // Periksa koneksi
+            if (!$conn) {
+                die("Koneksi gagal: " . mysqli_connect_error());
+            }
 
-// Simpan data ke file JSON
-file_put_contents($file_name, $json_data);
+            // Ambil data dari tabel
+            $sql = "SELECT * FROM datasuppler";
+            $result = mysqli_query($conn, $sql);
 
-// Tampilkan pesan sukses atau gagal
-if (file_exists($file_name)) {
-    echo '<div class="message-box" style="color: #008000;">';
-    echo 'Data berhasil diekspor ke ' . $file_name;
-    echo '<div class="close-button" onclick="window.location.href=\'master_supplier.php\'">x</div>';
-    echo '</div>';
-} else {
-    echo '<div class="message-box" style="color: #ff0000;">Gagal mengekspor data';
-    echo '<div class="close-button" onclick="window.location.href=\'halaman_utama.php\'">x</div>';
-    echo '</div>';
-}
+            $data = array();
 
-// Tutup koneksi
-$conn->close();
-?>
+            if ($result->num_rows > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $record = array(
+                        "idsupplier" => $row['idsupplier'],
+                        "namasupplier" => $row['namasupplier'],
+                        "alamatsupplier" => $row['alamatsupplier'],
+                        "tlpsupplier" => $row['tlpsupplier'],
+                        "jenisbarang" => $row['jenisbarang']
+                    );
+                    $data[] = $record;
+                }
+            }
+
+            // Konversi data ke format JSON
+            $json_data = json_encode($data, JSON_PRETTY_PRINT);
+
+            // Tentukan nama file JSON dan path folder
+            $folder_path = 'backupjson/';
+            $file_name = $folder_path . 'data_supplier.json';
+
+            // Pastikan folder sudah ada atau buat folder jika belum ada
+            if (!is_dir($folder_path)) {
+                mkdir($folder_path, 0777, true);
+            }
+
+            // Simpan data ke file JSON
+            if (file_put_contents($file_name, $json_data) !== false) {
+                echo '<div class="message-box" style="color: #008000;">';
+                echo 'Data berhasil diekspor ke ' . $file_name;
+                echo '<div class="close-button" onclick="window.location.href=\'master_supplier.php\'">x</div>';
+                echo '</div>';
+            }
+            ?>
+        }
+    </script>
 
 </body>
+
 </html>

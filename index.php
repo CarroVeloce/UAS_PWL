@@ -100,7 +100,7 @@ $data_json = json_encode($data);
 
         .container {
             position: relative;
-            max-width: 900px;
+            max-width: 1080px;
             max-height: 600px;
             margin-left: 400px;
             background-color: whitesmoke;
@@ -151,22 +151,33 @@ $data_json = json_encode($data);
             text-align: center;
         }
 
+            
+        .box-box {
+            display: flex;
+            justify-content: center; /* Align items to the right */
+            margin-top: 20px; /* Add some space between the charts and the boxes */
+        }
+
         .user-box {
-            width: 250px;
-            height: 100px;
-            padding-top: 10px;
+            width: 200px; /* Set a specific width for each user-box */
+            height: 115px;
+            display: flex;
+            flex-direction: column; /* Align items vertically */
+            justify-content: center; /* Center items vertically */
+            align-items: center; /* Center items horizontally */
             background-color: #007bff;
             color: #fff;
             text-align: center;
-            font-size: 14px;
-            margin-left:auto;
+            font-size: 12px;
             border-radius: 10px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-left: 20px; /* Add margin to create space between user-box elements */
         }
 
-        .box-box{
-            display: flex;
+        .user-box i {
+            margin-bottom: 10px; /* Add space between the icon and the text */
         }
+
     </style>
 </head>
 
@@ -180,6 +191,16 @@ $data_json = json_encode($data);
         <a href="login.php"><i class="fas fa-sign-in-alt"></i> Login</a>
     </div>
     <?php
+        //Ambil data jumlah distributor dari database
+        $sqlDis = "SELECT COUNT(*) as totalDistributor FROM datadistributor";
+        $resultDis = mysqli_query($conn, $sqlDis);
+        $rowDis = mysqli_fetch_assoc($resultDis);
+        $totalDistributor = $rowDis['totalDistributor'];
+        //Ambil data jumlah supplier dari database
+        $sqlSup = "SELECT COUNT(*) as totalSupplier FROM datasuppler";
+        $resultSup = mysqli_query($conn, $sqlSup);
+        $rowSup = mysqli_fetch_assoc($resultSup);
+        $totalSupplier = $rowSup['totalSupplier'];
         // Ambil data jumlah user dari database
         $sqlUser = "SELECT COUNT(*) as totalUsers FROM user";
         $resultUser = mysqli_query($conn, $sqlUser);
@@ -190,23 +211,33 @@ $data_json = json_encode($data);
         $totalStokQuery = mysqli_query($conn, "SELECT SUM(stok) as total_stok FROM databarang");
         $totalStok = mysqli_fetch_assoc($totalStokQuery)['total_stok'];
         ?>
-    <div class="box-box">
-        <div class="user-box">
-            <i class="fas fa-user-circle fa-3x"></i> 
-            <h2>Jumlah Pegawai: <?php echo $totalUsers; ?></h2>
-        </div>
-        
-        <div class="user-box">
-            <i class="fas fa-user-circle fa-3x"></i> 
-            <h2>Jumlah Barang: <?php echo $totalStok; ?></h2>
-        </div>
-    </div>    
+       
     <div class="container">
         <h2>Statistik Stok Barang</h2>
         <canvas id="barangChart" width="300" height="150"></canvas>
         
     </div>
-    
+    <div class="box-box">
+    <div class="user-box">
+        <i class="fas fa-users fa-3x"></i> <!-- Ganti dengan ikon "users" -->
+        <h2>Jumlah Pegawai: <?php echo $totalUsers; ?></h2>
+    </div>
+
+    <div class="user-box">
+        <i class="fas fa-cubes fa-3x"></i> <!-- Ganti dengan ikon "cubes" -->
+        <h2>Jumlah Barang: <?php echo $totalStok; ?></h2>
+    </div>
+
+    <div class="user-box">
+        <i class="fas fa-truck fa-3x"></i> <!-- Ganti dengan ikon "truck" -->
+        <h2>Jumlah Supplier: <?php echo $totalSupplier; ?></h2>
+    </div>
+
+    <div class="user-box">
+        <i class="fas fa-warehouse fa-3x"></i> <!-- Ganti dengan ikon "warehouse" -->
+        <h2>Jumlah Distributor: <?php echo $totalDistributor; ?></h2>
+    </div>
+</div>
     <script>
         var labels = <?php echo $labels_json; ?>;
         var data = <?php echo $data_json; ?>;
