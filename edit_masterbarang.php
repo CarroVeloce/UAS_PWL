@@ -268,6 +268,8 @@
                 exit;
             }
 
+
+
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $new_namabarang = $_POST['new_namabarang'];
                 $new_jenisbarang = $_POST['new_jenisbarang'];
@@ -275,6 +277,20 @@
                 $new_stok = $_POST['new_stok'];
                 $new_harga = $_POST['new_harga'];
                 $new_tanggalmasuk = $_POST['new_tanggalmasuk'];
+                $new_gambar = "";
+
+                if (isset($_FILES['new_image']) && $_FILES['new_image']['error'] == 0) {
+                    // File upload configuration
+                    $targetDir = "gambarproduk/";  // Specify the directory where you want to store uploaded images
+                    $targetFile = $targetDir . basename($_FILES['new_image']['name']);
+
+                    // Move the uploaded file to the target directory
+                    if (move_uploaded_file($_FILES['new_image']['tmp_name'], $targetFile)) {
+                        $new_gambar = $targetFile;
+                    } else {
+                        echo "Sorry, there was an error uploading your file.";
+                    }
+                }
 
                 if (empty($new_namabarang) || empty($new_jenisbarang) || empty($new_supplier) || empty($new_stok) || empty($new_harga) || empty($new_tanggalmasuk)) {
                     echo "Semua kolom harus diisi. Silakan isi semua data.";
@@ -282,7 +298,7 @@
                     echo "Harap masukkan angka untuk Stok dan Harga.";
                 } else {
 
-                    $update_sql = "UPDATE databarang SET namabarang = '$new_namabarang', jenisbarang = '$new_jenisbarang', supplier = '$new_supplier', stok = '$new_stok', harga = '$new_harga', tanggalmasuk = '$new_tanggalmasuk' WHERE nobarang = $nobarang";
+                    $update_sql = "UPDATE databarang SET namabarang = '$new_namabarang', jenisbarang = '$new_jenisbarang', supplier = '$new_supplier', stok = '$new_stok', harga = '$new_harga', tanggalmasuk = '$new_tanggalmasuk', gambar = '$new_gambar' WHERE nobarang = $nobarang";
 
                     if (mysqli_query($conn, $update_sql)) {
                         echo "Data barang berhasil diperbarui. <a href='master_barang.php'> Kembali</a>";
@@ -296,7 +312,7 @@
         }
         ?>
 
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <h2>Form Edit Barang</h2>
             <label for="new_namabarang">Nama Barang:</label>
             <input type="text" name="new_namabarang" value="<?php echo $row['namabarang']; ?>"><br>
@@ -304,40 +320,40 @@
             <label for="new_jenisbarang">Jenis Barang:</label>
             <input type="text" name="new_jenisbarang" value="<?php echo $row['jenisbarang']; ?>"><br>
             <div class="select-wrapper">
-            <label for="new_supplier">Supplier:</label>
-            <select name="new_supplier">
-                <?php
-                 $host = "localhost";
-                 $username = "root";
-                 $password = "";
-                 $database = "uas_pwl";
-                // Koneksi ke database
-                $conn = mysqli_connect($host, $username, $password, $database);
+                <label for="new_supplier">Supplier:</label>
+                <select name="new_supplier">
+                    <?php
+                    $host = "localhost";
+                    $username = "root";
+                    $password = "";
+                    $database = "uas_pwl";
+                    // Koneksi ke database
+                    $conn = mysqli_connect($host, $username, $password, $database);
 
-                if (!$conn) {
-                    die("Koneksi gagal: " . mysqli_connect_error());
-                }
-
-                // Query untuk mengambil data supplier dari tabel mastersupplier
-                $query_supplier = "SELECT idsupplier, namasupplier FROM datasuppler";
-                $result_supplier = mysqli_query($conn, $query_supplier);
-
-                if (mysqli_num_rows($result_supplier) > 0) {
-                    // Loop untuk menampilkan opsi-opsi supplier dalam dropdown
-                    while ($row_supplier = mysqli_fetch_assoc($result_supplier)) {
-                        echo "<option value='" . $row_supplier['namasupplier'] . "'";
-                        // Jika id_supplier cocok dengan data yang akan diedit, tambahkan attribute selected
-                        if ($row_supplier['idsupplier'] == $row['supplier']) {
-                            echo " selected";
-                        }
-                        echo ">" . $row_supplier['namasupplier'] . "</option>";
+                    if (!$conn) {
+                        die("Koneksi gagal: " . mysqli_connect_error());
                     }
-                }
 
-                // Tutup koneksi ke database
-                mysqli_close($conn);
-                ?>
-            </select>
+                    // Query untuk mengambil data supplier dari tabel mastersupplier
+                    $query_supplier = "SELECT idsupplier, namasupplier FROM datasuppler";
+                    $result_supplier = mysqli_query($conn, $query_supplier);
+
+                    if (mysqli_num_rows($result_supplier) > 0) {
+                        // Loop untuk menampilkan opsi-opsi supplier dalam dropdown
+                        while ($row_supplier = mysqli_fetch_assoc($result_supplier)) {
+                            echo "<option value='" . $row_supplier['namasupplier'] . "'";
+                            // Jika id_supplier cocok dengan data yang akan diedit, tambahkan attribute selected
+                            if ($row_supplier['idsupplier'] == $row['supplier']) {
+                                echo " selected";
+                            }
+                            echo ">" . $row_supplier['namasupplier'] . "</option>";
+                        }
+                    }
+
+                    // Tutup koneksi ke database
+                    mysqli_close($conn);
+                    ?>
+                </select>
             </div>
 
             <label for="new_stok">Stok:</label>
@@ -348,6 +364,9 @@
 
             <label for="new_tanggalmasuk">Tanggal Masuk:</label>
             <input type="date" name="new_tanggalmasuk" value="<?php echo $row['tanggalmasuk']; ?>"><br>
+
+            <label for="new_image">Gambar:</label>
+            <input type="file" name="new_image"><br>
 
             <input type="submit" value="Simpan Perubahan">
         </form>

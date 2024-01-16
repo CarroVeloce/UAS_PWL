@@ -7,6 +7,9 @@
             margin: 0;
             padding: 20px;
             background-color: #f4f4f4;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
         }
 
         form {
@@ -248,8 +251,9 @@
         <div class="circle"></div>
         <div class="circle"></div>
     </div>
-    <h2>Registrasi</h2>
+    
     <form method="post">
+    <h2>Registrasi</h2>
         <input type="text" name="nama" placeholder="Nama"><br><br>
         <input type="text" name="username" placeholder="Username"><br><br>
         <input type="email" name="email" placeholder="Email"><br><br>
