@@ -245,8 +245,8 @@
                 <option value="GPU">GPU</option>
                 <option value="RAM">RAM</option>
                 <option value="SSD">SSD</option>
-                <option value="SSD">HDD</option>
-                <option value="SSD">MOBO</option>
+                <option value="HDD">HDD</option>
+                <option value="MOBO">MOBO</option>
             </select>
             <label for="supplier">SUPPLIER:</label>
             <select name="supplier">

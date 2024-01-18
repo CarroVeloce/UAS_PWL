@@ -317,8 +317,24 @@
             <label for="new_namabarang">Nama Barang:</label>
             <input type="text" name="new_namabarang" value="<?php echo $row['namabarang']; ?>"><br>
 
+            <div class="select-wrapper">
             <label for="new_jenisbarang">Jenis Barang:</label>
-            <input type="text" name="new_jenisbarang" value="<?php echo $row['jenisbarang']; ?>"><br>
+            <select name="new_jenisbarang">
+                <option value="CPU" <?php if ($row['jenisbarang'] == 'CPU')
+                    echo 'selected'; ?>>CPU</option>
+                <option value="GPU" <?php if ($row['jenisbarang'] == 'GPU')
+                    echo 'selected'; ?>>GPU</option>
+                <option value="RAM" <?php if ($row['jenisbarang'] == 'RAM')
+                    echo 'selected'; ?>>RAM</option>
+                <option value="SSD" <?php if ($row['jenisbarang'] == 'SSD')
+                    echo 'selected'; ?>>SSD</option>
+                <option value="HDD" <?php if ($row['jenisbarang'] == 'HDD')
+                    echo 'selected'; ?>>HDD</option>
+                <option value="MOBO" <?php if ($row['jenisbarang'] == 'MOBO')
+                    echo 'selected'; ?>>MOBO</option>
+            </select><br>
+            </div>
+
             <div class="select-wrapper">
                 <label for="new_supplier">Supplier:</label>
                 <select name="new_supplier">

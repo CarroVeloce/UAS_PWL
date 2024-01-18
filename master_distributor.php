@@ -233,11 +233,10 @@
     </div>
     <div class="sidebar">
         <h2>ADMIN</h2>
-        <a href="index.php"><i class="fas fa-home"></i> Dashbord</a>
+        <a href="dashbord.php"><i class="fas fa-home"></i> Dashbord</a>
         <a href="master_barang.php"><i class="fas fa-box"></i> Master Barang</a>
         <a href="master_supplier.php"><i class="fas fa-users"></i> Master Supplier</a>
         <a href="master_distributor.php" class="active"><i class="fas fa-store"></i> Master Distributor</a>
-        <a href="login.php"><i class="fas fa-sign-in-alt"></i> Login</a>
     </div>
 
     <div class="container" style="margin-left: 250px;">
@@ -300,10 +299,12 @@
                 $sql = "SELECT idtoko, namatoko, alamat, notlptoko, jenisbarang, namabarang 
                         FROM datadistributor 
                         WHERE namatoko LIKE '%$search%'
+                        ORDER BY idtoko DESC
                         LIMIT $itemsPerPage OFFSET $offset";
             } else {
                 $sql = "SELECT idtoko, namatoko, alamat, notlptoko, jenisbarang, namabarang 
                         FROM datadistributor 
+                        ORDER BY idtoko DESC
                         LIMIT $itemsPerPage OFFSET $offset";
             }
 

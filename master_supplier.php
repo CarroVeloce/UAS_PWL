@@ -231,11 +231,10 @@
     </div>
     <div class="sidebar">
         <h2>ADMIN</h2>
-        <a href="index.php"><i class="fas fa-home"></i> Dashbord</a>
+        <a href="dashbord.php"><i class="fas fa-home"></i> Dashbord</a>
         <a href="master_barang.php"><i class="fas fa-box"></i> Master Barang</a>
         <a href="master_supplier.php" class="active"><i class="fas fa-users"></i> Master Supplier</a>
         <a href="master_distributor.php"><i class="fas fa-store"></i> Master Distributor</a>
-        <a href="login.php"><i class="fas fa-sign-in-alt"></i> Login</a>
     </div>
 
     <div class="container" style="margin-left: 250px;">
@@ -276,26 +275,22 @@
                 die("Koneksi gagal: " . mysqli_connect_error());
             }
 
-            $itemsPerPage = 2; // Jumlah item per halaman
-            $page = isset($_GET['page']) ? $_GET['page'] : 1; // Halaman saat ini, defaultnya 1
-            $offset = ($page - 1) * $itemsPerPage; // Offset data
+            $itemsPerPage = 5; // Adjust this value as needed
+            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $offset = ($page - 1) * $itemsPerPage;
 
-            if (isset($_POST['delete_idsupplier'])) {
-                $delete_idsupplier = mysqli_real_escape_string($conn, $_POST['delete_idsupplier']);
-                $sql = "DELETE FROM datasuppler WHERE idsupplier = '$delete_idsupplier'";
-
-                if (mysqli_query($conn, $sql)) {
-                    echo "";
-                } else {
-                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-                }
-            }
-        
             if (isset($_GET['search']) && !empty($_GET['search'])) {
                 $search = $_GET['search'];
-                $sql = "SELECT idsupplier,namasupplier, alamatsupplier, tlpsupplier, jenisbarang FROM datasuppler WHERE idsupplier LIKE '%$search%' OR namasupplier LIKE '%$search%' OR jenisbarang LIKE '%$search%'";
+                $sql = "SELECT idsupplier, namasupplier, alamatsupplier, tlpsupplier, jenisbarang
+                        FROM datasuppler
+                        WHERE idsupplier LIKE '%$search%' OR namasupplier LIKE '%$search%' OR jenisbarang  LIKE '%$search%'
+                        ORDER BY idsupplier DESC
+                        LIMIT $itemsPerPage OFFSET $offset";
             } else {
-                $sql = "SELECT idsupplier,namasupplier, alamatsupplier, tlpsupplier, jenisbarang FROM datasuppler";
+                $sql = "SELECT idsupplier, namasupplier, alamatsupplier, tlpsupplier, jenisbarang
+                        FROM datasuppler
+                        ORDER BY idsupplier DESC
+                        LIMIT $itemsPerPage OFFSET $offset";
             }
             $result = mysqli_query($conn, $sql);
 
