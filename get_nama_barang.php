@@ -1,9 +1,9 @@
 <?php
-// Ambil nilai 'jenisbarang' yang dikirimkan melalui metode GET
+
 if (isset($_GET['jenisbarang'])) {
     $jenisBarang = $_GET['jenisbarang'];
 
-    // Lakukan koneksi ke database
+
     $host = "localhost";
     $username = "root";
     $password = "";

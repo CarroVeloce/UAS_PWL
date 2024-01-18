@@ -73,8 +73,6 @@
                 echo '</tr>';
             }
             echo '</table>';
-
-            // Add a button for exporting data
             
         }
     }
@@ -88,15 +86,12 @@
             $password = "";
             $database = "uas_pwl";
 
-            // Buat koneksi
             $conn = mysqli_connect($host, $username, $password, $database);
 
-            // Periksa koneksi
             if (!$conn) {
                 die("Koneksi gagal: " . mysqli_connect_error());
             }
 
-            // Ambil data dari tabel
             $sql = "SELECT * FROM databarang";
             $result = mysqli_query($conn, $sql);
 

@@ -343,7 +343,7 @@
                     $username = "root";
                     $password = "";
                     $database = "uas_pwl";
-                    // Koneksi ke database
+                   
                     $conn = mysqli_connect($host, $username, $password, $database);
 
                     if (!$conn) {
@@ -366,7 +366,6 @@
                         }
                     }
 
-                    // Tutup koneksi ke database
                     mysqli_close($conn);
                     ?>
                 </select>

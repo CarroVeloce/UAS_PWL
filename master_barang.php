@@ -309,9 +309,9 @@
             $kurs_usd_to_idr = 15050;
 
             // Pagination
-            $itemsPerPage = 5; // Jumlah item per halaman
-            $page = isset($_GET['page']) ? $_GET['page'] : 1; // Halaman saat ini, defaultnya 1
-            $offset = ($page - 1) * $itemsPerPage; // Offset data
+            $itemsPerPage = 3; 
+            $page = isset($_GET['page']) ? $_GET['page'] : 1; 
+            $offset = ($page - 1) * $itemsPerPage; 
             
             if (isset($_POST['delete_nobarang'])) {
                 $delete_nobarang = mysqli_real_escape_string($conn, $_POST['delete_nobarang']);

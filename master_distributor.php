@@ -290,7 +290,7 @@
             }
 
             // Pagination
-            $itemsPerPage = 5; // Adjust this value as needed
+            $itemsPerPage = 5; 
             $page = isset($_GET['page']) ? $_GET['page'] : 1;
             $offset = ($page - 1) * $itemsPerPage;
 

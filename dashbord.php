@@ -154,29 +154,29 @@ $data_json = json_encode($data);
             
         .box-box {
             display: flex;
-            justify-content: center; /* Align items to the right */
+            justify-content: center; 
             margin-top: 20px;
-            margin-left: 250px; /* Add some space between the charts and the boxes */
+            margin-left: 250px; 
         }
 
         .user-box {
-            width: 200px; /* Set a specific width for each user-box */
+            width: 200px; 
             height: 115px;
             display: flex;
-            flex-direction: column; /* Align items vertically */
-            justify-content: center; /* Center items vertically */
-            align-items: center; /* Center items horizontally */
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
             background-color: #007bff;
             color: #fff;
             text-align: center;
             font-size: 12px;
             border-radius: 10px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin-left: 20px; /* Add margin to create space between user-box elements */
+            margin-left: 20px; 
         }
 
         .user-box i {
-            margin-bottom: 10px; /* Add space between the icon and the text */
+            margin-bottom: 10px; 
         }
 
     </style>
@@ -221,22 +221,22 @@ $data_json = json_encode($data);
     </div>
     <div class="box-box">
     <div class="user-box">
-        <i class="fas fa-users fa-3x"></i> <!-- Ganti dengan ikon "users" -->
+        <i class="fas fa-users fa-3x"></i> 
         <h2>Jumlah Pegawai: <?php echo $totalUsers; ?></h2>
     </div>
 
     <div class="user-box">
-        <i class="fas fa-cubes fa-3x"></i> <!-- Ganti dengan ikon "cubes" -->
+        <i class="fas fa-cubes fa-3x"></i> 
         <h2>Jumlah Barang: <?php echo $totalStok; ?></h2>
     </div>
 
     <div class="user-box">
-        <i class="fas fa-truck fa-3x"></i> <!-- Ganti dengan ikon "truck" -->
+        <i class="fas fa-truck fa-3x"></i> 
         <h2>Jumlah Supplier: <?php echo $totalSupplier; ?></h2>
     </div>
 
     <div class="user-box">
-        <i class="fas fa-warehouse fa-3x"></i> <!-- Ganti dengan ikon "warehouse" -->
+        <i class="fas fa-warehouse fa-3x"></i> 
         <h2>Jumlah Distributor: <?php echo $totalDistributor; ?></h2>
     </div>
 </div>
